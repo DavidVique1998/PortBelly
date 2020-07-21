@@ -9,7 +9,6 @@ import {
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
 import Swal from 'sweetalert2';
-
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
 
@@ -19,27 +18,27 @@ export class ServiceInterceptor implements HttpInterceptor {
     return response.handle(request).do(next => {
       if (next instanceof HttpResponse){
         console.info(next);
-        switch (error.status){
+        switch(next.status){
           case 201:
             Swal.fire({
-              title : "¡Correcto!",
+              title : '¡Correcto!',
               text : next.body,
-              icon : "success"
+              icon : 'success'
             });
-          break;
+            break;
         }
       }
     }, error => {
       console.error(error);
-      switch (error.status){
-        case 400:
-          Swal.fire({
-            title : "Error",
-            text : error.error.Message,
-            icon : "error"
-          });
-          break;
-      }
+      switch(error.status){
+          case 400:
+            Swal.fire({
+              title : 'Error',
+              text : error.error.Message,
+              icon : 'error'
+            });
+            break;
+        }
     });
   }
 }
