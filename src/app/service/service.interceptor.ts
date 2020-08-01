@@ -38,6 +38,13 @@ export class ServiceInterceptor implements HttpInterceptor {
               icon : 'error'
             });
             break;
+          case 500:
+            Swal.fire({
+              title : 'Error',
+              text : error.error.Message,
+              icon : 'error'
+            });
+            break;
         }
     });
   }

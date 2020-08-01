@@ -1,56 +1,113 @@
-<form>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationServer01">First name</label>
-        <input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required>
-        <div class="valid-feedback">
-          Looks good!
+<div class="row">
+  <div class="col-sm">
+    <a class="nav-link " routerLink="/productos">
+      <fa-icon [icon]="faList"></fa-icon> Productos
+    </a>
+  </div>
+  <div class="col-sm">
+    <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
+  </div>
+</div>
+<hr>
+<form [formGroup]="formProduct" (ngSubmit)="onSubmit(Image)" class="user" enctype="multipart/form-data" #imageForm = ngForm>
+  <div class="card-body">
+    <div class="row row-cols-2">
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <img [src]="imageUrl"  style="width: 350px; height:300px">
+            </span>
+          </div>
+          <input formControlName="prd_img" type="file" (change)="handleFileInput($event.target.files)" class="form-control-file"  placeholder="Imagen" #Image accept="image/*" required/>
         </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <label for="validationServer02">Last name</label>
-        <input type="text" class="form-control is-valid" id="validationServer02" value="Otto" required>
-        <div class="valid-feedback">
-          Looks good!
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faPager"></fa-icon>
+                </span>
+              </div>
+              <input formControlName="cat_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.cat_id" placeholder="Categoria" required/>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faTag"></fa-icon>
+                </span>
+              </div>
+              <input formControlName="prm_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.prm_id" placeholder="Promoción" required/>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faPager"></fa-icon>
+            </span>
+          </div>
+          <input formControlName="prd_nom" type="text" class="form-control " [(ngModel)]="product.prd_nom"
+            placeholder="Nombre" required />
+        </div>
+        <label for="talla">Talla</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faRuler"></fa-icon>
+            </span>
+          </div>
+          <!-- <div class="form-group"> -->
+            <!-- <label for="talla">Seleccionar Talla</label> -->
+            <select formControlName="prd_tal" type= "text" class="form-control form-control-user" id="exampleFormControlSelect1" [(ngModel)]="product.prd_tal" placeholder="Talla" required>
+              <option>XL</option>
+              <option>L</option>
+              <option>M</option>
+              <option>S</option>
+              <option>XS</option>
+            </select>
+          <!-- </div> -->
+          <!-- <input formControlName="prd_tal" type="text" class="form-control form-control-user"
+            [(ngModel)]="product.prd_tal" placeholder="Talla" /> -->
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faTag"></fa-icon>
+            </span>
+          </div>
+          <textarea formControlName="prd_crt" type="text" class="form-control form-control-user"
+            [(ngModel)]="product.prd_crt" placeholder="Caracteristicas" required></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faGripVertical"></fa-icon>
+            </span>
+          </div>
+          <input formControlName="prd_cnt" type="number" min= "1" max= "100000" class="form-control form-control-user" [(ngModel)]="product.prd_cnt" placeholder="Cantidad" required/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faDollarSign"></fa-icon>
+            </span>
+          </div>
+          <input formControlName="prd_prc" type="number" min= "0.01" max= "100000" step="0.01" class="form-control form-control-user" [(ngModel)]="product.prd_prc" placeholder="precio" required/>
+        </div>
+        <div class="btn-group text-center">
+          <button type="submit" [disabled]="Image.value=='' || !formProduct.valid  " class="btn btn-success">
+            <fa-icon [icon]="faSave"></fa-icon>&nbsp;Guardar
+          </button>
+          <button type="reset" (click)="onReset()" class="btn btn-danger">
+            <fa-icon [icon]="faTimes"></fa-icon>&nbsp;Cancelar
+          </button>
         </div>
       </div>
     </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationServer03">City</label>
-        <input type="text" class="form-control is-invalid" id="validationServer03" required>
-        <div class="invalid-feedback">
-          Please provide a valid city.
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationServer04">State</label>
-        <select class="custom-select is-invalid" id="validationServer04" required>
-          <option selected disabled value="">Choose...</option>
-          <option>...</option>
-        </select>
-        <div class="invalid-feedback">
-          Please select a valid state.
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationServer05">Zip</label>
-        <input type="text" class="form-control is-invalid" id="validationServer05" required>
-        <div class="invalid-feedback">
-          Please provide a valid zip.
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-        <label class="form-check-label" for="invalidCheck3">
-          Agree to terms and conditions
-        </label>
-        <div class="invalid-feedback">
-          You must agree before submitting.
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
-  </form>
+  </div>
+</form>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { ProductService } from '../../service/product.service';
-import { faUserPlus,faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-products-list',

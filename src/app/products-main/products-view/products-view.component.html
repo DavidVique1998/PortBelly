@@ -1,3 +1,99 @@
-<p>products-view works!</p>
-<p>{{ producto.prd_id }}</p>
-<p>{{ producto.prd_nom }}</p>
+<div class="row">
+  <div class="col-sm">
+    <a class="nav-link " routerLink="/productos">
+      <fa-icon [icon]="faList"></fa-icon> Productos
+    </a>
+  </div>
+  <div class="col-sm">
+    <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
+  </div>
+</div>
+<hr>
+<form class="container-fluid" ng-init="getImageFromService()" >
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xs-6" style="margin: 50px;">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <img [src]="imageToShow" style="width: 350px; height:300px"/>
+            </span>
+          </div>   
+        </div>
+      </div>
+      <div class="col-xs-6" style="margin: 50px;">
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faPager"></fa-icon>
+                </span>
+              </div>
+              <label class="form-control ">{{ product.cat_id }} </label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faTag"></fa-icon>
+                </span>
+              </div>
+              <label class="form-control ">{{ product.prm_id }} </label>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faPager"></fa-icon>
+            </span>
+          </div>
+          <label class="form-control ">{{ product.prd_nom}} </label>
+        </div>
+        <label for="talla">Talla</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faRuler"></fa-icon>
+            </span>
+          </div>
+          <label class="form-control ">{{ product.prd_tal }} </label>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faTag"></fa-icon>
+            </span>
+          </div>
+          <label class="form-control ">{{ product.prd_crt }} </label>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faGripVertical"></fa-icon>
+            </span>
+          </div>
+          <label class="form-control ">{{ product.prd_cnt }} </label>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]="faDollarSign"></fa-icon>
+            </span>
+          </div>
+          <label class="form-control ">{{ product.prd_prc }} </label>
+        </div>
+        <!-- <div class="btn-group text-center">
+                  <button type="submit" [disabled]="Image.value=='' || !formProduct.valid  " class="btn btn-success">
+                    <fa-icon [icon]="faSave"></fa-icon>&nbsp;Guardar
+                  </button>
+                  <button type="reset" (click)="onReset()" class="btn btn-danger">
+                    <fa-icon [icon]="faTimes"></fa-icon>&nbsp;Cancelar
+                  </button>
+                </div> -->
+      </div>
+    </div>
+  </div>
+</form>

@@ -7,7 +7,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductService {
-  url = "https://localhost:44386/api/Productos";
+  url = "https://localhost:44386/api/Producto";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -40,6 +40,11 @@ export class ProductService {
     .pipe(
       retry(1)
     );
+  }
+  update(p: Product): Observable<any>{
+    const alumnoBody = JSON.stringify(p);
+    console.log(p);
+    return this.http.put<any>(this.url, p, this.httpOptions);
   }
 
 }

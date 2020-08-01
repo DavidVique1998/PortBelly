@@ -1,7 +1,9 @@
 <div>
   <div class="row">
     <div class="col-sm">
-      <fa-icon [icon]="faUserPlus"></fa-icon> <a class = "nav-link " routerLink="/crear">Crear Producto </a> 
+      <a class="nav-link " routerLink="crear">
+        <fa-icon [icon]="faUserPlus"></fa-icon> Crear Producto
+      </a>
     </div>
     <div class="col-sm">
       <fa-icon class="fa-2x" [icon]="faListAlt"></fa-icon>
@@ -36,10 +38,8 @@
         <td>{{ item.prd_cnt }}</td>
         <td>{{ item.prd_prc }}$</td>
         <td class="btn-group">
-          <button [routerLink]="['/productos',item.prd_id]" class="btn btn-sm btn-info" ><fa-icon [icon]="faEye"></fa-icon></button>     
-          <button class="btn btn-sm btn-warning">
-            <fa-icon [icon]="faPencilAlt"></fa-icon>
-          </button>
+          <button [routerLink]="['/productos/ver',item.prd_id]" class="btn btn-sm btn-info" ><fa-icon [icon]="faEye"></fa-icon></button>     
+          <button [routerLink]="['/productos/editar',item.prd_id]" class="btn btn-sm btn-warning"><fa-icon [icon]="faPencilAlt"></fa-icon></button>
           <button (click)="delete(item)" class="btn btn-sm btn-danger">
             <fa-icon [icon]="faTrash"></fa-icon>
           </button>

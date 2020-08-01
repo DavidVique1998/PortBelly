@@ -6,7 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-product-market',
   templateUrl: './product-market.component.html',
-  styleUrls: ['./product-market.component.css']
+  styleUrls: ['./product-market.component.css'],
+
 })
 export class ProductMarketComponent implements OnInit {
   @Input() product: Product;

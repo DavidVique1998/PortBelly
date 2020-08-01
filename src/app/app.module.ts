@@ -14,7 +14,10 @@ import { ProductService } from './service/product.service';
 import { ServiceInterceptor } from './service/service.interceptor';
 import { ProductsViewComponent } from './products-main/products-view/products-view.component';
 import { ProductMarketComponent } from './products-main/product-market/product-market.component';
+import { ProductsCreateComponent } from './products-main/products-create/products-create.component';
 import { ImageService } from './service/image.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,17 @@ import { ImageService } from './service/image.service';
     ProductsEditComponent,
     ProductsMarketComponent,
     ProductsViewComponent,
-    ProductMarketComponent
+    ProductMarketComponent,
+    ProductsCreateComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule
   ],
   providers: [
     ProductService, {
