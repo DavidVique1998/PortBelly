@@ -18,6 +18,9 @@ import { ProductsCreateComponent } from './products-main/products-create/product
 import { ImageService } from './service/image.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CategoriesMainComponent } from './categories-main/categories-main.component';
+import { CategoriesListComponent } from './categories-main/categories-list/categories-list.component';
+import { CategoriesFormComponent } from './categories-main/categories-form/categories-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { CommonModule } from '@angular/common';
     ProductsMarketComponent,
     ProductsViewComponent,
     ProductMarketComponent,
-    ProductsCreateComponent
+    ProductsCreateComponent,
+    CategoriesMainComponent,
+    CategoriesListComponent,
+    CategoriesFormComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@
         <th>Nombre</th>
         <th>Imagen</th>
         <th>Talla</th>
-        <th>Caracteristicas</th>
+        <th>Creado</th>
         <th>Cantidad</th>
         <th>Precio</th>
         <th>Opciones</th>
@@ -29,12 +29,12 @@
     <tbody>
       <tr *ngFor="let item of products">
         <td>{{item.prd_id}}</td>
-        <td>{{item.cat_id}}</td>
-        <td>{{item.prm_id}}</td>
+        <td>{{item.Categoria.cat_nom}}</td>
+        <td>{{item.Promocion.prm_nom}}</td>
         <td>{{item.prd_nom}}</td>
         <td>{{ item.prd_img }}</td>
         <td>{{ item.prd_tal }}</td>
-        <td>{{ item.prd_crt }}</td>
+        <td>{{ item.prd_dateOfCreated | date:'longDate' }}</td>
         <td>{{ item.prd_cnt }}</td>
         <td>{{ item.prd_prc }}$</td>
         <td class="btn-group">

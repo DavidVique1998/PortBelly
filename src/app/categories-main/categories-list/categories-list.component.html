@@ -1,0 +1,38 @@
+<div>
+  <div class="text-center">
+    <fa-icon class="fa-2x" [icon]="faListAlt"></fa-icon>
+  </div>
+  <hr>
+  <h5>Listado de Categorias</h5>
+  <table class="table table-hover">
+    <thead class="backColor">
+      <tr>
+        <th>
+          N°
+        </th>
+        <th>
+          Nombres
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of categories; let i = index">
+        <td>
+          {{item.cat_id}}
+        </td>
+        <td>
+          {{item.cat_nom}}
+        </td>
+        <td class="btn-group">
+          <button (click)="update(item)" class="btn btn-sm btn-warning">
+            <fa-icon [icon]="faPencilAlt"></fa-icon>
+          </button>
+          <button (click)="delete(item)" class="btn btn-sm btn-danger">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

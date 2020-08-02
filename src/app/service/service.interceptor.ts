@@ -18,34 +18,41 @@ export class ServiceInterceptor implements HttpInterceptor {
     return response.handle(request).do(next => {
       if (next instanceof HttpResponse){
         console.info(next);
-        switch(next.status){
+        switch (next.status) {
           case 201:
             Swal.fire({
-              title : '¡Correcto!',
-              text : next.body,
-              icon : 'success'
+              title: '¡Correcto!',
+              text: next.body,
+              icon: 'success',
             });
             break;
         }
       }
     }, error => {
       console.error(error);
-      switch(error.status){
-          case 400:
-            Swal.fire({
-              title : 'Error',
-              text : error.error.Message,
-              icon : 'error'
-            });
-            break;
-          case 500:
-            Swal.fire({
-              title : 'Error',
-              text : error.error.Message,
-              icon : 'error'
-            });
-            break;
-        }
+      switch (error.status) {
+        case 400:
+          Swal.fire({
+            title: 'Error',
+            text: error.error.Message,
+            icon: 'error',
+          });
+          break;
+        case 500:
+          Swal.fire({
+            title: 'Error',
+            text: error.error.Message,
+            icon: 'error',
+          });
+          break;
+        case 409:
+          Swal.fire({
+            title: 'Error',
+            text: error.error.Message,
+            icon: 'error',
+          });
+          break;
+      }
     });
   }
 }

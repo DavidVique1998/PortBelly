@@ -33,6 +33,6 @@ export class ImageService {
       .pipe(retry(1));
   }
   deleteFile(name: string): Observable<any> {
-    return this.http.delete<any>(this.url + '?name=' + name, this.httpOptions);
+    return this.http.delete<any>(this.url + '?name=' + name, this.httpOptions).pipe(retry(1));
   }
 }

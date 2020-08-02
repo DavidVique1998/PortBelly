@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="col-sm">
+  <div class="col-6 col-md-6 col-sm-6">
     <a class="nav-link " routerLink="/productos">
       <fa-icon [icon]="faList"></fa-icon> Productos
     </a>
   </div>
-  <div class="col-sm">
+  <div class="col-6 col-md-6 col-sm-6">
     <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
   </div>
 </div>
@@ -12,7 +12,7 @@
 <form [formGroup]="formProduct" (ngSubmit)="onSubmit(Image)" class="user" enctype="multipart/form-data" #imageForm = ngForm>
   <div class="card-body">
     <div class="row row-cols-2">
-      <div class="col">
+      <div class="col-12 col-sm-12 col-md-6 ">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -22,7 +22,7 @@
           <input formControlName="prd_img" type="file" (change)="handleFileInput($event.target.files)" class="form-control-file"  placeholder="Imagen" #Image accept="image/*" required/>
         </div>
       </div>
-      <div class="col">
+      <div class="col-12 col-sm-12 col-md-6 ">
         <div class="row">
           <div class="col">
             <div class="input-group mb-3">
@@ -31,7 +31,10 @@
                   <fa-icon [icon]="faPager"></fa-icon>
                 </span>
               </div>
-              <input formControlName="cat_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.cat_id" placeholder="Categoria" required/>
+              <!-- <input formControlName="cat_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.cat_id" placeholder="Categoria" required/> -->
+              <select formControlName="cat_id" [(ngModel)]="product.cat_id" class="form-control" required>
+                <option *ngFor="let item of categorias" [value]="item.cat_id">{{item.cat_nom}}</option>
+               </select>
             </div>
           </div>
           <div class="col">
@@ -41,7 +44,10 @@
                   <fa-icon [icon]="faTag"></fa-icon>
                 </span>
               </div>
-              <input formControlName="prm_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.prm_id" placeholder="Promoción" required/>
+              <!-- <input formControlName="prm_id" type="number" min= "1" max= "5" class="form-control " [(ngModel)]="product.prm_id" placeholder="Promoción" required/> -->
+              <select formControlName="prm_id" [(ngModel)]="product.prm_id" class="form-control" required>
+                <option *ngFor="let item of promociones" [value]="item.prm_id">{{item.prm_nom}}</option>
+               </select>
             </div>
           </div>
         </div>

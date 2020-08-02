@@ -7,16 +7,20 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/service/product.service';
-import { ImageService } from 'src/app/service/image.service';
+import { Product } from '../../models/product';
+import { ProductService } from '../../service/product.service';
+import { ImageService } from '../../service/image.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { error } from '@angular/compiler/src/util';
+import { Categoria } from '../../models/categoria';
+import { CategoriaService } from '../../service/categoria.service';
+import { Promocion } from '../../models/promocion';
+import { PromocionService } from '../../service/promocion.service';
 @Component({
   selector: 'app-products-edit',
   templateUrl: './products-edit.component.html',
   styleUrls: ['./products-edit.component.css'],
-  providers: [ImageService]
+  providers: [ImageService],
 })
 export class ProductsEditComponent implements OnInit {
   faUserPlus = faUserPlus;
@@ -38,7 +42,7 @@ export class ProductsEditComponent implements OnInit {
   faCartPlus = faCartPlus;
   faList = faList;
   image: Variable;
-  caption: Variable ;
+  caption: Variable;
   @Input() product: Product;
   @Input() title: string;
   @Output() flagToReload = new EventEmitter<boolean>();
@@ -50,20 +54,31 @@ export class ProductsEditComponent implements OnInit {
   imageToShow: any = '/assets/img/UploadImage.png';
   cambio = false;
   lastImagen: string;
-  constructor(private imageService: ImageService, private productService: ProductService, private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer) { }
+  categorias: Categoria[];
+  promociones: Promocion[];
+  constructor(
+    private imageService: ImageService,
+    private productService: ProductService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private categoriaService: CategoriaService,
+    private promocionService: PromocionService
+  ) {}
 
   ngOnInit(): void {
+    this.listCategoria();
+    this.listPromocion();
     this.product = new Product();
     this.getProductFromService();
     this.formProduct = this.formBuilder.group({
-
       cat_id: ['', [Validators.required]],
       prm_id: ['', [Validators.required]],
       prd_nom: ['', [Validators.required]],
       prd_tal: ['', [Validators.required]],
       prd_crt: ['', [Validators.required]],
       prd_cnt: ['', [Validators.required]],
-      prd_prc: ['', [Validators.required]]
+      prd_prc: ['', [Validators.required]],
     });
   }
   public register(): void {
@@ -72,57 +87,60 @@ export class ProductsEditComponent implements OnInit {
   }
   onSubmit(image): void {
     this.submitted = true;
-    if (this.formProduct.invalid){
+    if (this.formProduct.invalid) {
       console.error('Error en formulario');
-      swal.fire({
-        title: 'Error en el formulario',
-        text: 'El formulario debe contener todos los datos',
-        icon: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.value) {
-          return;
-        }
-      });
+      swal
+        .fire({
+          title: 'Error en el formulario',
+          text: 'El formulario debe contener todos los datos',
+          icon: 'warning',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar',
+        })
+        .then((result) => {
+          if (result.value) {
+            return;
+          }
+        });
       return;
     }
     console.log(this.product);
     // Si la Imagen Cambió
-    if (this.cambio){
+    if (this.cambio) {
       console.log(this.cambio);
       console.log(this.lastImagen);
       // Elimino el archivo
-      this.imageService.deleteFile(this.lastImagen).subscribe(data => {
-        // Subo la imagen
-        this.imageService.postFile(this.product.prd_nom, this.fileToUpload).subscribe(data2 => {
-          this.product.prd_img = data2;
-          console.log(data2);
-          // Actualizo el producto
-          this.productService.update(this.product).subscribe(
-            result => {
-               this.submitted = false;
-               console.log(result);
-               this.flagToReload.emit(true);
-             }
-           );
-        });
-      }, ( error ) => {
-        console.log(error);
-      });
-    }else{
+      this.imageService.deleteFile(this.lastImagen).subscribe(
+        (data) => {
+          // Subo la imagen
+          this.imageService
+            .postFile(this.product.prd_nom, this.fileToUpload)
+            .subscribe((data2) => {
+              this.product.prd_img = data2;
+              console.log(data2);
+              // Actualizo el producto
+              this.productService.update(this.product).subscribe((result) => {
+                this.submitted = false;
+                console.log(result);
+                this.flagToReload.emit(true);
+              });
+            });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
       console.log(this.cambio);
       // Actualizo el producto
-      this.productService.update(this.product).subscribe(
-        result => {
-           this.submitted = false;
-           console.log(result);
-           this.flagToReload.emit(true);
-         }
-       );
+      this.productService.update(this.product).subscribe((result) => {
+        this.submitted = false;
+        console.log(result);
+        this.flagToReload.emit(true);
+      });
     }
   }
   onReset(): void {
@@ -130,7 +148,7 @@ export class ProductsEditComponent implements OnInit {
     this.formProduct.reset();
     this.product = new Product();
   }
-  handleFileInput(file: FileList): void{
+  handleFileInput(file: FileList): void {
     this.fileToUpload = file.item(0);
     // Show image preview
     const reader = new FileReader();
@@ -141,17 +159,15 @@ export class ProductsEditComponent implements OnInit {
     this.cambio = true;
   }
 
-   // Obtiene el producto segun la id
-   getProductFromService(): void{
+  // Obtiene el producto segun la id
+  getProductFromService(): void {
     this.activatedRoute.params.subscribe(
-      params => {
+      (params) => {
         this.product = new Product();
-        if ( params[ "id" ]){
-          this.productService.retrive(params["id"]).subscribe(
-            result => {this.product = result,
-              this.getImageFromService();
-            }
-          );
+        if (params['id']) {
+          this.productService.retrive(params['id']).subscribe((result) => {
+            (this.product = result), this.getImageFromService();
+          });
         }
       },
       (error) => {
@@ -160,7 +176,7 @@ export class ProductsEditComponent implements OnInit {
     );
   }
   // Obtiene la imagen respecto a ese producto
-  getImageFromService(): void{
+  getImageFromService(): void {
     this.imageService.getProfileImage(this.product.prd_img).subscribe(
       (data: any) => {
         const objectURL = 'data:image/jpeg;base64,' + data;
@@ -173,5 +189,14 @@ export class ProductsEditComponent implements OnInit {
       }
     );
   }
-
+  listCategoria(): void {
+    this.categoriaService
+      .list()
+      .subscribe((result) => (this.categorias = result));
+  }
+  listPromocion(): void {
+    this.promocionService
+      .list()
+      .subscribe((result) => (this.promociones = result));
+  }
 }

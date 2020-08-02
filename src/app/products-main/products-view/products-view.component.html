@@ -1,18 +1,18 @@
 <div class="row">
-  <div class="col-sm">
+  <div class="col-6 col-md-6 col-sm-6" style="text-align:left">
     <a class="nav-link " routerLink="/productos">
       <fa-icon [icon]="faList"></fa-icon> Productos
     </a>
   </div>
-  <div class="col-sm">
+  <div class="col-6 col-md-6 col-sm-6" style="text-align: left">
     <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
   </div>
 </div>
 <hr>
-<form class="container-fluid" ng-init="getImageFromService()" >
-  <div class="card-body">
-    <div class="row">
-      <div class="col-xs-6" style="margin: 50px;">
+<!-- <form class="user" ng-init="getImageFromService()" >  -->
+  <div class="container">
+    <div class="row row-cols-2">
+      <div class="col-12 col-sm-12 col-md-6 " style="padding-left: auto;" >
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -21,7 +21,7 @@
           </div>   
         </div>
       </div>
-      <div class="col-xs-6" style="margin: 50px;">
+      <div class="col-12 col-sm-12 col-md-6 " style="padding-left: 50px;">
         <div class="row">
           <div class="col">
             <div class="input-group mb-3">
@@ -30,7 +30,7 @@
                   <fa-icon [icon]="faPager"></fa-icon>
                 </span>
               </div>
-              <label class="form-control ">{{ product.cat_id }} </label>
+              <label class="form-control ">{{ product.Categoria.cat_nom }} </label>
             </div>
           </div>
           <div class="col">
@@ -40,7 +40,7 @@
                   <fa-icon [icon]="faTag"></fa-icon>
                 </span>
               </div>
-              <label class="form-control ">{{ product.prm_id }} </label>
+              <label class="form-control ">{{ product.Promocion.prm_nom }} </label>
             </div>
           </div>
         </div>
@@ -85,6 +85,10 @@
           </div>
           <label class="form-control ">{{ product.prd_prc }} </label>
         </div>
+        <a class="nav-link " [routerLink]="['/productos/editar',product.prd_id]">
+          <fa-icon [icon]="faPencilAlt"></fa-icon> Editar
+        </a>
+        
         <!-- <div class="btn-group text-center">
                   <button type="submit" [disabled]="Image.value=='' || !formProduct.valid  " class="btn btn-success">
                     <fa-icon [icon]="faSave"></fa-icon>&nbsp;Guardar
@@ -96,4 +100,4 @@
       </div>
     </div>
   </div>
-</form>
+<!-- </form> -->

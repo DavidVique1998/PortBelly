@@ -6,18 +6,21 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/service/product.service';
-import { ImageService } from 'src/app/service/image.service';
+import { Product } from '../../models/product';
+import { ProductService } from '../../service/product.service';
+import { ImageService } from '../../service/image.service';
+import { Categoria } from '../../models/categoria';
+import { CategoriaService } from '../../service/categoria.service';
+import { Promocion } from '../../models/promocion';
+import { PromocionService } from '../../service/promocion.service';
 
 @Component({
   selector: 'app-products-create',
   templateUrl: './products-create.component.html',
   styleUrls: ['./products-create.component.css'],
-  providers: [ImageService]
+  providers: [ImageService],
 })
 export class ProductsCreateComponent implements OnInit {
-
   faUserPlus = faUserPlus;
   faListAlt = faListAlt;
   faEye = faEye;
@@ -36,8 +39,8 @@ export class ProductsCreateComponent implements OnInit {
   faPager = faPager;
   faCartPlus = faCartPlus;
   faList = faList;
-  image: Variable ;
-  caption: Variable ;
+  image: Variable;
+  caption: Variable;
   @Input() product: Product;
   @Input() title: string;
   @Output() flagToReload = new EventEmitter<boolean>();
@@ -45,9 +48,19 @@ export class ProductsCreateComponent implements OnInit {
   submitted = false;
   imageUrl = '/assets/img/UploadImage.png';
   fileToUpload: File = null;
-  constructor(private imageService: ImageService, private productService: ProductService, private formBuilder: FormBuilder) { }
+  categorias: Categoria[];
+  promociones: Promocion[];
+  constructor(
+    private imageService: ImageService,
+    private productService: ProductService,
+    private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService,
+    private promocionService: PromocionService
+  ) {}
 
   ngOnInit(): void {
+    this.listCategoria();
+    this.listPromocion();
     this.product = new Product();
     this.formProduct = this.formBuilder.group({
       prd_img: ['', [Validators.required]],
@@ -57,16 +70,16 @@ export class ProductsCreateComponent implements OnInit {
       prd_tal: ['', [Validators.required]],
       prd_crt: ['', [Validators.required]],
       prd_cnt: ['', [Validators.required]],
-      prd_prc: ['', [Validators.required]]
+      prd_prc: ['', [Validators.required]],
     });
     // this.buildForm();
   }
-  private buildForm(): void{
-    const prdCat = 1 ;
+  private buildForm(): void {
+    const prdCat = 1;
     const prdPrm = 1;
     const prdNom = '';
     const prdImg = File;
-    const prdTal = '' ;
+    const prdTal = '';
     const prdCrt = '';
     const prdCnt = 1;
     const prdPrc = 0.01;
@@ -84,7 +97,7 @@ export class ProductsCreateComponent implements OnInit {
       registeredOn: today,
       name: name.toLowerCase(),
       email: 'john@angular.io',
-      password: ''
+      password: '',
     });
   }
   public register(): void {
@@ -92,31 +105,30 @@ export class ProductsCreateComponent implements OnInit {
     console.log(user);
   }
   onSubmit(image): void {
-
     this.submitted = true;
 
-    if (this.formProduct.invalid){
+    if (this.formProduct.invalid) {
       console.error('Error en formulario');
       return;
     }
-    this.imageService.postFile(this.product.prd_nom, this.fileToUpload).subscribe(data => {
-      this.product.prd_img = data;
-      console.log(data);
-      this.productService.create(this.product).subscribe(
-        result => {
-           this.submitted = false;
-           console.log(result);
-           this.flagToReload.emit(true);
-         }
-       );
-    });
+    this.imageService
+      .postFile(this.product.prd_nom, this.fileToUpload)
+      .subscribe((data) => {
+        this.product.prd_img = data;
+        console.log(data);
+        this.productService.create(this.product).subscribe((result) => {
+          this.submitted = false;
+          console.log(result);
+          this.flagToReload.emit(true);
+        });
+      });
   }
   onReset(): void {
     this.submitted = false;
     this.formProduct.reset();
     this.product = new Product();
   }
-  handleFileInput(file: FileList): void{
+  handleFileInput(file: FileList): void {
     this.fileToUpload = file.item(0);
     // Show image preview
     const reader = new FileReader();
@@ -124,5 +136,15 @@ export class ProductsCreateComponent implements OnInit {
       this.imageUrl = event.target.result;
     };
     reader.readAsDataURL(this.fileToUpload);
+  }
+  listCategoria(): void {
+    this.categoriaService
+      .list()
+      .subscribe((result) => (this.categorias = result));
+  }
+  listPromocion(): void {
+    this.promocionService
+      .list()
+      .subscribe((result) => (this.promociones = result));
   }
 }
