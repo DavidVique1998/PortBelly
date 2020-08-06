@@ -26,6 +26,13 @@ export class ServiceInterceptor implements HttpInterceptor {
               icon: 'success',
             });
             break;
+          case 202:
+            Swal.fire({
+              title: '¡Correcto!',
+              text: next.body,
+              icon: 'success',
+            });
+            break;
         }
       }
     }, error => {

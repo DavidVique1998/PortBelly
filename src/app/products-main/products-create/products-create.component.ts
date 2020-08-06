@@ -3,7 +3,7 @@ import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome
 import {faDollarSign, faRuler, faPager, faSave, faTimes, faPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { faIdCard, faTag, faAlignJustify, faGripVertical, faImage, faList} from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/product';
@@ -59,8 +59,6 @@ export class ProductsCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listCategoria();
-    this.listPromocion();
     this.product = new Product();
     this.formProduct = this.formBuilder.group({
       prd_img: ['', [Validators.required]],
@@ -72,33 +70,12 @@ export class ProductsCreateComponent implements OnInit {
       prd_cnt: ['', [Validators.required]],
       prd_prc: ['', [Validators.required]],
     });
+    this.listCategoria();
+    this.listPromocion();
     // this.buildForm();
   }
-  private buildForm(): void {
-    const prdCat = 1;
-    const prdPrm = 1;
-    const prdNom = '';
-    const prdImg = File;
-    const prdTal = '';
-    const prdCrt = '';
-    const prdCnt = 1;
-    const prdPrc = 0.01;
-    const dateLength = 10;
-    const today = new Date().toISOString().substring(0, dateLength);
-    const name = 'JOHN DOE';
-    this.formProduct = this.formBuilder.group({
-      prdCat: prdCat.toString(),
-      prdPrm: prdPrm.toString(),
-      prdNom: prdNom.toLowerCase(),
-      prdTal: prdTal.toLowerCase(),
-      prdCrt: prdCrt.toLowerCase(),
-      prdCnt: prdCnt.toString(),
-      prdPrc: prdPrc.toString(),
-      registeredOn: today,
-      name: name.toLowerCase(),
-      email: 'john@angular.io',
-      password: '',
-    });
+  get f(): any {
+    return this.formProduct.controls;
   }
   public register(): void {
     const user = this.formProduct.value;
@@ -108,6 +85,11 @@ export class ProductsCreateComponent implements OnInit {
     this.submitted = true;
 
     if (this.formProduct.invalid) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error en formulario',
+        icon: 'error',
+      });
       console.error('Error en formulario');
       return;
     }
@@ -126,6 +108,7 @@ export class ProductsCreateComponent implements OnInit {
   onReset(): void {
     this.submitted = false;
     this.formProduct.reset();
+    this.imageUrl = '/assets/img/UploadImage.png';
     this.product = new Product();
   }
   handleFileInput(file: FileList): void {

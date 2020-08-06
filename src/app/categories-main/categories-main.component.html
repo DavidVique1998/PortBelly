@@ -1,1 +1,16 @@
-<p>categories-main works!</p>
+<div class="container text-center">
+    <br>
+    <div class="page-header">
+        <h4>Categorias <small>Operaciones CRUD-L PortBelly</small></h4>
+    </div>
+    <hr>
+    <div class="row justify-content-center h-100">
+        <div class="col-md-6">
+            <app-categories-form [categoria]="mainCategorias" [title]="mainTitle"></app-categories-form>
+        </div>
+        <div class="col-md-6">
+            <app-categories-list (productoToUpdate)="toUpdate($event)" [flagToReload]="mainReload" (reloadComplete)="reloadDone($event)"></app-categories-list>
+        </div>
+    </div>
+    <hr>
+</div>

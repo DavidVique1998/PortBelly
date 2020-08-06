@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="text-center">
+        <fa-icon class="fa-2x" [icon]="faTag"></fa-icon>
+    </div>
+    <hr>
+    <h6>{{title}}</h6>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="user">
+    <div class="card-body">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
+            </div>
+            <input formControlName="prm_nom" type="text" class="form-control form-control-user" [(ngModel)]="promocion.prm_nom" [ngClass]="{'is-invalid': submitted && f.prm_nom.errors}" placeholder="Nombre" />
+            <div *ngIf="submitted && f.prm_nom.errors" class="invalid-feedback">
+                <div *ngIf="f.prm_nom.errors.requerido">El nombre es requerido</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cantidad</span>
+                    </div>
+                    <input formControlName="prm_tip" type="radio" [value]=true checked=true class="form-control form-control-user" [(ngModel)]="promocion.prm_tip" [ngClass]="{'is-invalid': submitted && f.prm_tip.errors}" placeholder="Tipo" checked/>
+                    <div *ngIf="submitted && f.prm_tip.errors" class="invalid-feedback">
+                        <div *ngIf="f.prm_tip.errors.requerido">El tipo es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Porcentaje</span>
+                    </div>
+                    <input formControlName="prm_tip" type="radio" [value]=false class="form-control form-control-user" [(ngModel)]="promocion.prm_tip" [ngClass]="{'is-invalid': submitted && f.prm_tip.errors}" placeholder="Tipo" />
+                    <div *ngIf="submitted && f.prm_tip.errors" class="invalid-feedback">
+                        <div *ngIf="f.prm_tip.errors.requerido">El tipo es requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3" *ngIf="promocion.prm_tip &&f.prm_tip">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
+            </div>
+            <input formControlName="prm_can" type="number" value="1" min="1" max="100000" class="form-control form-control-user" [(ngModel)]="promocion.prm_can" [ngClass]="{'is-invalid': submitted && f.prm_can.errors}" placeholder="Cantidad" />
+            <div *ngIf="submitted && f.prm_can.errors" class="invalid-feedback">
+                <div *ngIf="f.prm_can.errors.requerido">La cantidad es requerida</div>
+            </div>
+        </div>
+        <div class="input-group mb-3" *ngIf="!promocion.prm_tip && f.prm_tip">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><fa-icon [icon]='faPercent'></fa-icon></span>
+            </div>
+            <input formControlName="prm_por" type="number" min="0" max="100" class="form-control form-control-user" [(ngModel)]="promocion.prm_por" [ngClass]="{'is-invalid': submitted && f.prm_por.errors}" placeholder="Porcentaje" />
+            <div *ngIf="submitted && f.prm_por.errors" class="invalid-feedback">
+                <div *ngIf="f.prm_por.errors.requerido">El Porcentaje es requerido</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-success">
+                <fa-icon [icon]='faSave'></fa-icon>&nbsp;Guardar
+            </button>
+            <button type="reset" (click)="onReset()" class="btn btn-danger">
+                <fa-icon [icon]='faTimes'></fa-icon>&nbsp;Cancelar
+            </button>
+        </div>
+    </div>
+</form>
+<hr>

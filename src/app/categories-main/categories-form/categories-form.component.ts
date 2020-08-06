@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Categoria } from '../../models/categoria';
 import {  FormBuilder, FormGroup , Validators} from '@angular/forms';
-import { faUserPlus, faIdCard, faSave, faTimes, faTag} from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faIdCard, faSave, faTimes, faTag, faWindowRestore} from '@fortawesome/free-solid-svg-icons';
 import { CategoriaService } from '../../service/categoria.service';
 
 @Component({
@@ -10,11 +10,11 @@ import { CategoriaService } from '../../service/categoria.service';
   styleUrls: ['./categories-form.component.css']
 })
 export class CategoriesFormComponent implements OnInit {
-  aTimes = faTimes;
+  faTimes = faTimes;
   faTag = faTag;
   faIdCard = faIdCard;
   faSave = faSave;
-  @Input() categorias: Categoria;
+  @Input() categoria: Categoria;
   @Input() title: string;
   @Output() flagToReload = new EventEmitter<boolean>();
   form: FormGroup;
@@ -35,18 +35,17 @@ export class CategoriesFormComponent implements OnInit {
       console.error('Error en formulario');
       return;
     }
-    this.categoriasService.create(this.categorias).subscribe(
+    this.categoriasService.create(this.categoria).subscribe(
       result => {
         this.submitted = false;
-
         console.log(result);
-        this.flagToReload.emit(true);
       }
     );
   }
   onReset(): void {
     this.submitted = false;
     this.form.reset();
-    this.categorias = new Categoria();
+    this.categoria = new Categoria();
+    window.location.reload();
   }
 }

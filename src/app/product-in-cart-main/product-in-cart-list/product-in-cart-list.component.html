@@ -1,0 +1,48 @@
+<div>
+  <div class="row">
+    <div class="col-6 col-md-6 col-sm-6">
+      <a class="nav-link " routerLink="/tienda">
+        <fa-icon [icon]="faList"></fa-icon> Tienda
+      </a>
+    </div>
+    <div class="col-6 col-md-6 col-sm-6">
+      <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
+    </div>
+  </div>
+    <hr>
+    <h5>Listado de Producto en carrito</h5>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>N°</th>
+          <th>Producto</th>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Añadido</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of productsInCart;let i = index">
+          <td>{{i+1}}</td>
+          <td><img [src]="productsInCartImages[i]" style="width: auto; height:50px"/></td>
+          <td>{{item.Producto.prd_id+" "+item.Producto.prd_nom}}</td>
+          <td>{{item.pcr_cnt}}</td>
+          <td>{{item.Producto.prd_prc}}</td>
+          <td>{{item.pcr_est}}</td>
+          <td>{{ item.pcr_dateOfCreated | date:'longDate' }}</td>
+            
+          <td class="btn-group">
+            <button [routerLink]="['/productos/ver',item.prd_id]" class="btn btn-sm btn-info" ><fa-icon [icon]="faEye"></fa-icon></button>     
+            <button [routerLink]="['/productos/editar',item.prd_id]" class="btn btn-sm btn-warning"><fa-icon [icon]="faPencilAlt"></fa-icon></button>
+            <button (click)="delete(item)" class="btn btn-sm btn-danger">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

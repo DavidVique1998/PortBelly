@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +24,14 @@ import { CommonModule } from '@angular/common';
 import { CategoriesMainComponent } from './categories-main/categories-main.component';
 import { CategoriesListComponent } from './categories-main/categories-list/categories-list.component';
 import { CategoriesFormComponent } from './categories-main/categories-form/categories-form.component';
+import { PromotionMainComponent } from './promotion-main/promotion-main.component';
+import { PromotionFormComponent } from './promotion-main/promotion-form/promotion-form.component';
+import { PromotionListComponent } from './promotion-main/promotion-list/promotion-list.component';
+import { TipoPromocionPipe } from './shared/tipo-promocion.pipe';
+import { ProductInCartMainComponent } from './product-in-cart-main/product-in-cart-main.component';
+import { ProductInCartListComponent } from './product-in-cart-main/product-in-cart-list/product-in-cart-list.component';
+import { ProductInCartCreateComponent } from './product-in-cart-main/product-in-cart-create/product-in-cart-create.component';
+import { ProductInCartAddComponent } from './product-in-cart-main/product-in-cart-add/product-in-cart-add.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +46,15 @@ import { CategoriesFormComponent } from './categories-main/categories-form/categ
     ProductsCreateComponent,
     CategoriesMainComponent,
     CategoriesListComponent,
-    CategoriesFormComponent
+    CategoriesFormComponent,
+    PromotionMainComponent,
+    PromotionFormComponent,
+    PromotionListComponent,
+    TipoPromocionPipe,
+    ProductInCartMainComponent,
+    ProductInCartListComponent,
+    ProductInCartCreateComponent,
+    ProductInCartAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,19 +63,26 @@ import { CategoriesFormComponent } from './categories-main/categories-form/categ
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
-    ProductService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ServiceInterceptor,
-    multi: true
-  },
-  ImageService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ServiceInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+    ProductService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServiceInterceptor,
+      multi: true,
+    },
+    ImageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServiceInterceptor,
+      multi: true,
+    },
+    {
+      provide: LOCALE_ID,
+      useValue : 'es-EC'
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

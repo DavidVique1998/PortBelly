@@ -5,15 +5,22 @@ import { ProductsMarketComponent } from './products-main/products-market/product
 import { ProductsViewComponent } from './products-main/products-view/products-view.component';
 import { ProductsCreateComponent } from './products-main/products-create/products-create.component';
 import { ProductsEditComponent } from './products-main/products-edit/products-edit.component';
-
+import { CategoriesMainComponent } from './categories-main/categories-main.component';
+import { PromotionMainComponent } from './promotion-main/promotion-main.component';
+import { ProductInCartAddComponent } from './product-in-cart-main/product-in-cart-add/product-in-cart-add.component';
+import { ProductInCartListComponent} from './product-in-cart-main/product-in-cart-list/product-in-cart-list.component';
 const routes: Routes = [
 {path: '', redirectTo: '/', pathMatch: 'full'},
 {path: 'tienda', component: ProductsMarketComponent},
 {path: 'productos', component: ProductsListComponent},
 {path: 'productos/ver/:id', component: ProductsViewComponent},
 {path: 'productos/crear', component: ProductsCreateComponent},
-{path: 'productos/editar/:id' , component: ProductsEditComponent}]
-
+{path: 'productos/editar/:id' , component: ProductsEditComponent},
+{path: 'categorias', component: CategoriesMainComponent},
+{path: 'promociones', component: PromotionMainComponent},
+{path: 'productoencarrito/add/:id', component: ProductInCartAddComponent},
+{path: 'carritopersonal', component: ProductInCartListComponent},
+]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,1 +1,29 @@
-<p>categories-form works!</p>
+<div class="container">
+    <div class="text-center">
+        <fa-icon class="fa-2x" [icon]="faTag"></fa-icon>
+    </div>
+    <hr>
+    <h6>{{title}}</h6>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="user">
+    <div class="card-body">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
+            </div>
+            <input formControlName="nombres" type="text" class="form-control form-control-user" [(ngModel)]="categoria.cat_nom" [ngClass]="{'is-invalid': submitted && f.nombres.errors}" placeholder="Nombre" />
+            <div *ngIf="submitted && f.nombres.errors" class="invalid-feedback">
+                <div *ngIf="f.nombres.errors.requerido">El nombre es requerido</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-success">
+                <fa-icon [icon]='faSave'></fa-icon>&nbsp;Guardar
+            </button>
+            <button type="reset" (click)="onReset()" class="btn btn-danger">
+                <fa-icon [icon]='faTimes'></fa-icon>&nbsp;Cancelar
+            </button>
+        </div>
+    </div>
+</form>
+<hr>

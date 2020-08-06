@@ -35,6 +35,7 @@ export class ProductsListComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.productService.delete(p).subscribe(result => console.log(result));
+        this.OnReset();
       }
     });
   }
@@ -43,4 +44,7 @@ export class ProductsListComponent implements OnInit {
     this.productService.list().subscribe(result => {this.products = result; });
   }
 
+  OnReset(): void{
+    window.location.reload();
+  }
 }

@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-products-view',
   templateUrl: './products-view.component.html',
-  styleUrls: ['./products-view.component.css']
+  styleUrls: ['./products-view.component.css'],
 })
 export class ProductsViewComponent implements OnInit {
   faUserPlus = faUserPlus;
@@ -35,28 +35,29 @@ export class ProductsViewComponent implements OnInit {
   imageUrl = '/assets/img/UploadImage.png';
   base64data: string;
   imageToShow: any = '/assets/img/UploadImage.png';
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private imageService: ImageService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute,
+    private imageService: ImageService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     this.getProductFromService();
   }
   // Obtiene el producto segun la id
-  getProductFromService(): void{
-    this.activatedRoute.params.subscribe(
-      params => {
-        this.product = new Product();
-        if ( params[ "id" ]){
-          this.productService.retrive(params["id"]).subscribe(
-            result => {this.product = result,
-              this.getImageFromService();
-            }
-          );
-        }
+  getProductFromService(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.product = new Product();
+      if (params['id']) {
+        this.productService.retrive(params['id']).subscribe((result) => {
+          (this.product = result), this.getImageFromService();
+        });
       }
-    );
+    });
   }
   // Obtien la imagen respecto a ese producto
-  getImageFromService(): void{
+  getImageFromService(): void {
     this.imageService.getProfileImage(this.product.prd_img).subscribe(
       (data: any) => {
         const objectURL = 'data:image/jpeg;base64,' + data;
