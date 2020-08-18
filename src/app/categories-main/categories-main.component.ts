@@ -23,7 +23,6 @@ export class CategoriesMainComponent implements OnInit {
 
   toUpdate($event): void{
     this.mainCategorias = $event;
-    this.mainCategorias.cat_nom;
     console.log(this.mainCategorias);
     this.mainTitle = 'Editando categoría ' + $event.cat_nom ;
   }

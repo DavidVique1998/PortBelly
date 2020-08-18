@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { CategoriaService } from '../../service/categoria.service';
 import { Categoria } from '../../models/categoria';
 import { faListAlt, faEye, faPencilAlt, faUserPlus, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -26,6 +26,13 @@ export class CategoriesListComponent implements OnInit {
   ngOnInit(): void {
     this.list();
   }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.flagToReload.currentValue){
+      if (this.flagToReload){
+        this.list();
+      }
+    }
+  }
   list(): void {
     this.categoriasService.list().subscribe((result) => {
       this.categories = result;
@@ -36,6 +43,7 @@ export class CategoriesListComponent implements OnInit {
     this.productoToUpdate.emit(p);
     console.log(this.productoToUpdate.emit(p));
   }
+
   delete(categoria: Categoria): void {
     swal
       .fire({
@@ -50,9 +58,10 @@ export class CategoriesListComponent implements OnInit {
       })
       .then((result) => {
         if (result.value) {
-          this.categoriasService
-            .delete(categoria)
-            .subscribe((result) => console.log(result));
+          this.categoriasService.delete(categoria).subscribe((result) => {
+            console.log(result);
+            this.ngOnInit();
+          });
         }
       });
   }

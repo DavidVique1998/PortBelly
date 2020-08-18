@@ -22,7 +22,7 @@ export class PromotionListComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   faPlus = faPlus;
-  promociones: Promocion[];
+  promociones: Array<Promocion> = [];
   @Input() flagToReload;
   @Output() productoToUpdate = new EventEmitter<Promocion>();
   @Output() reloadComplete = new EventEmitter<boolean>();
@@ -55,10 +55,10 @@ export class PromotionListComponent implements OnInit {
       })
       .then((result) => {
         if (result.value) {
-          this.categoriasService
-            .delete(promocion)
-            .subscribe((result) => console.log(result)),
-            window.location.reload();
+          this.categoriasService.delete(promocion).subscribe((result) => {
+            console.log(result);
+            this.ngOnInit();
+          });
         }
       });
   }

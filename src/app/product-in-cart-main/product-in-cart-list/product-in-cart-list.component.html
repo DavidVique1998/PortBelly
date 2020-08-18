@@ -1,16 +1,21 @@
 <div>
   <div class="row">
-    <div class="col-6 col-md-6 col-sm-6">
+    <div class="col-4 col-md-4 col-sm-4">
       <a class="nav-link " routerLink="/tienda">
         <fa-icon [icon]="faList"></fa-icon> Tienda
       </a>
     </div>
-    <div class="col-6 col-md-6 col-sm-6">
+    <div class="col-4 col-md-4 col-sm-4">
+      <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
+    </div>
+    <div class="col-4 col-md-4 col-sm-4">
       <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
     </div>
   </div>
     <hr>
-    <h5>Listado de Producto en carrito</h5>
+    <div class="row">
+      <div class="col-xl-8 col-md-12 col-sm-12 col-12">
+        <h5>Listado de Producto en carrito</h5>
     <table class="table table-hover">
       <thead class="thead-dark">
         <tr>
@@ -19,6 +24,8 @@
           <th>Nombre</th>
           <th>Cantidad</th>
           <th>Precio</th>
+          <th>Promoción</th>
+          <th>Total</th>
           <th>Estado</th>
           <th>Añadido</th>
           <th>Opciones</th>
@@ -28,9 +35,12 @@
         <tr *ngFor="let item of productsInCart;let i = index">
           <td>{{i+1}}</td>
           <td><img [src]="productsInCartImages[i]" style="width: auto; height:50px"/></td>
+
           <td>{{item.Producto.prd_id+" "+item.Producto.prd_nom}}</td>
           <td>{{item.pcr_cnt}}</td>
-          <td>{{item.Producto.prd_prc}}</td>
+          <td>{{item.Producto.prd_prc}} c/u</td>
+          <td>{{item.Producto.Promocion.prm_nom}}</td>
+          <td>{{productsPrice[i]|number:"1.2-2"}}</td>
           <td>{{item.pcr_est}}</td>
           <td>{{ item.pcr_dateOfCreated | date:'longDate' }}</td>
             
@@ -39,10 +49,24 @@
             <button [routerLink]="['/productos/editar',item.prd_id]" class="btn btn-sm btn-warning"><fa-icon [icon]="faPencilAlt"></fa-icon></button>
             <button (click)="delete(item)" class="btn btn-sm btn-danger">
               <fa-icon [icon]="faTrash"></fa-icon>
-            </button>
-            
+            </button> 
           </td>
         </tr>
       </tbody>
     </table>
+      </div>
+      <div class="col-4 col-md-4 col-sm-5" >
+        <div class="col">
+          <div class="productoTienda" style="margin-left: 20px;">
+          <h5><b>Recibo</b></h5>
+          <h5>Nº Productos: {{contador}}</h5>
+          <h5>Total: {{precioTotal|number:"1.2-2"}}</h5>
+          <button>
+            <!-- <h6> <a class="agregarBotton" [routerLink]="['/productoencarrito/add',product.prd_id]" >Agregar al carrito</a></h6> -->
+            <h6> <a class="agregarBotton" [routerLink]="['/productoencarrito/add',1009]" >Completar Pago</a></h6>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>

@@ -72,8 +72,9 @@ export class PromotionFormComponent implements OnInit {
   }
   onReset(): void {
     this.submitted = false;
+    this.ngOnInit();
     this.form.reset();
     this.promocion = new Promocion();
-    window.location.reload();
+    this.flagToReload.emit(true);
   }
 }

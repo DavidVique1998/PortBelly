@@ -1,0 +1,52 @@
+body {
+    padding-top: 0%;
+    padding: 0%;
+    margin: 0%;
+    width: 100%;
+    position: absolute;
+  }
+  
+  .productoTienda>img {
+    width: 100%;
+  }
+  
+  .productoTienda {
+    padding: 5%;
+    border: solid;
+    border-width: 2px 2px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 9px #999;
+    margin-bottom: 10%;
+  }
+  
+  .productoTienda>button {
+    padding: 5% 5%;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin-bottom: 2%;
+  }
+  
+  .productoTienda>button:hover {
+    background-color: #3e8e41
+  }
+  
+  .productoTienda>button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  
+  a.agregarBotton {
+    text-decoration: none;
+    text-decoration-color: white;
+    color: white;
+  }

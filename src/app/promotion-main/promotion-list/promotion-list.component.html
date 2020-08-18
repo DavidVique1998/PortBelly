@@ -20,8 +20,8 @@
           <td>{{item.prm_id}}</td>
           <td>{{item.prm_nom}}</td>
           <td>{{item.prm_tip|tipoPromocion}}</td>
-          <td>{{item.prm_can}}</td>
-          <td>{{item.prm_por}}%</td>
+          <td>{{item.prm_can|number}}</td>
+          <td>{{item.prm_por|percent}}</td>
           <td class="btn-group">
             <button (click)="update(item)" class="btn btn-sm btn-warning">
               <fa-icon [icon]="faPencilAlt"></fa-icon>

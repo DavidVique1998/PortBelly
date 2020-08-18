@@ -39,13 +39,16 @@ export class CategoriesFormComponent implements OnInit {
       result => {
         this.submitted = false;
         console.log(result);
+        this.flagToReload.emit(true);
       }
     );
   }
   onReset(): void {
     this.submitted = false;
+    this.ngOnInit();
     this.form.reset();
     this.categoria = new Categoria();
-    window.location.reload();
+    this.flagToReload.emit(true);
+    // window.location.reload();
   }
 }
