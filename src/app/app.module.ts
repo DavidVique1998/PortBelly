@@ -32,6 +32,12 @@ import { ProductInCartMainComponent } from './product-in-cart-main/product-in-ca
 import { ProductInCartListComponent } from './product-in-cart-main/product-in-cart-list/product-in-cart-list.component';
 import { ProductInCartCreateComponent } from './product-in-cart-main/product-in-cart-create/product-in-cart-create.component';
 import { ProductInCartAddComponent } from './product-in-cart-main/product-in-cart-add/product-in-cart-add.component';
+import { UsuarioMainComponent } from './usuario-main/usuario-main.component';
+import { UserMainComponent } from './user-main/user-main.component';
+import { UserSignInMainComponent } from './user-main/user-sign-in-main/user-sign-in-main.component';
+import { UserSignUpMainComponent } from './user-main/user-sign-up-main/user-sign-up-main.component';
+import { UserSignInFormComponent } from './user-main/user-sign-in-main/user-sign-in-form/user-sign-in-form.component';
+import { UserSignUpFormComponent } from './user-main/user-sign-up-main/user-sign-up-form/user-sign-up-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,12 @@ import { ProductInCartAddComponent } from './product-in-cart-main/product-in-car
     ProductInCartListComponent,
     ProductInCartCreateComponent,
     ProductInCartAddComponent,
+    UsuarioMainComponent,
+    UserMainComponent,
+    UserSignInMainComponent,
+    UserSignUpMainComponent,
+    UserSignInFormComponent,
+    UserSignUpFormComponent,
   ],
   imports: [
     BrowserModule,

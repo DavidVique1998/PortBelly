@@ -21,6 +21,7 @@ export class CategoriesFormComponent implements OnInit {
   submitted = false;
   constructor(private categoriasService: CategoriaService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {
+    this.categoria = new Categoria();
     this.form = this.formBuilder.group({
       nombres: ['', [Validators.required]],
     });
@@ -49,6 +50,5 @@ export class CategoriesFormComponent implements OnInit {
     this.form.reset();
     this.categoria = new Categoria();
     this.flagToReload.emit(true);
-    // window.location.reload();
   }
 }

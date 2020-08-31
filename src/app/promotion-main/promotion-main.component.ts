@@ -22,7 +22,6 @@ export class PromotionMainComponent implements OnInit {
 
   toUpdate($event): void{
     this.mainPromocion = $event;
-    this.mainPromocion.prm_nom;
     console.log(this.mainPromocion);
     this.mainTitle = 'Editando promoción ' + $event.prm_nom ;
   }

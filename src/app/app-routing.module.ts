@@ -9,18 +9,69 @@ import { CategoriesMainComponent } from './categories-main/categories-main.compo
 import { PromotionMainComponent } from './promotion-main/promotion-main.component';
 import { ProductInCartAddComponent } from './product-in-cart-main/product-in-cart-add/product-in-cart-add.component';
 import { ProductInCartListComponent} from './product-in-cart-main/product-in-cart-list/product-in-cart-list.component';
+import { UserMainComponent} from './user-main/user-main.component';
+import {AuthGuard} from './guards/auth.guard';
 const routes: Routes = [
-{path: '', redirectTo: '/', pathMatch: 'full'},
-{path: 'tienda', component: ProductsMarketComponent},
-{path: 'productos', component: ProductsListComponent},
-{path: 'productos/ver/:id', component: ProductsViewComponent},
-{path: 'productos/crear', component: ProductsCreateComponent},
-{path: 'productos/editar/:id' , component: ProductsEditComponent},
-{path: 'categorias', component: CategoriesMainComponent},
-{path: 'promociones', component: PromotionMainComponent},
-{path: 'productoencarrito/add/:id', component: ProductInCartAddComponent},
-{path: 'carritopersonal', component: ProductInCartListComponent},
-]
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  {
+    path: 'tienda',
+    component: ProductsMarketComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Cliente'] },
+  },
+  {
+    path: 'carritopersonal',
+    component: ProductInCartListComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Cliente'] },
+  },
+  {
+    path: 'productos',
+    component: ProductsListComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'productos/ver/:id',
+    component: ProductsViewComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'productos/crear',
+    component: ProductsCreateComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'productos/editar/:id',
+    component: ProductsEditComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'categorias',
+    component: CategoriesMainComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'promociones',
+    component: PromotionMainComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'productoencarrito/add/:id',
+    component: ProductInCartAddComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  { path: 'login', component: UserMainComponent },
+  {
+    path: '', redirectTo: 'tienda',pathMatch: 'full'
+  }
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

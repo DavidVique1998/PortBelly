@@ -1,0 +1,16 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#SignIn" role="tab" aria-controls="home" aria-selected="true">Sign In</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#SignUp" role="tab" aria-controls="profile" aria-selected="false">Sign Up</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="SignIn" role="tabpanel" aria-labelledby="home-tab">
+        <app-user-sign-in-form></app-user-sign-in-form>
+    </div>
+    <div class="tab-pane fade" id="SignUp" role="tabpanel" aria-labelledby="profile-tab">
+        <app-user-sign-up-form> </app-user-sign-up-form>
+    </div>
+</div>

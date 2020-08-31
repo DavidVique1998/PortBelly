@@ -4,62 +4,87 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, onErrorResumeNext } from 'rxjs';
 import 'rxjs/add/operator/do';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Injectable()
 export class ServiceInterceptor implements HttpInterceptor {
+  constructor(private router: Router) {}
 
-  constructor() {}
+  intercept(
+    request: HttpRequest<unknown>,
+    // nex: HttpHandler,
+    response: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    // const token = localStorage.token;
+    // if (!token){
+    //   return nex.handle(request);
+    // }
+    // const req1 = request.clone({
+    //   headers: request.headers.set('Authorization', 'Bearer ' + token)
+    // });
 
-  intercept(request: HttpRequest<unknown>, response: HttpHandler): Observable<HttpEvent<unknown>> {
-    return response.handle(request).do(next => {
-      if (next instanceof HttpResponse){
-        console.info(next);
-        switch (next.status) {
-          case 201:
+    return response.handle(request).do(
+      (next) => {
+        if (next instanceof HttpResponse) {
+          console.info(next);
+          switch (next.status) {
+            case 201:
+              Swal.fire({
+                title: '¡Correcto!',
+                text: next.body,
+                icon: 'success',
+              });
+              break;
+            case 202:
+              Swal.fire({
+                title: '¡Correcto!',
+                text: next.body,
+                icon: 'success',
+              });
+              break;
+          }
+        }
+      },
+      (error) => {
+        console.error(error);
+        switch (error.status) {
+          case 400:
             Swal.fire({
-              title: '¡Correcto!',
-              text: next.body,
-              icon: 'success',
+              title: 'Error 400',
+              text: error.error.Message,
+              icon: 'error',
             });
             break;
-          case 202:
+          case 401:
             Swal.fire({
-              title: '¡Correcto!',
-              text: next.body,
-              icon: 'success',
+              title: 'Acceso Denegado',
+              text:
+                'No esta autorizado para realizar esta petición' +
+                error.error.Message,
+              icon: 'error',
+            });
+            this.router.navigateByUrl('/login');
+            break;
+          case 409:
+            Swal.fire({
+              title: 'Error',
+              text: error.error.Message,
+              icon: 'error',
+            });
+            break;
+          case 500:
+            Swal.fire({
+              title: 'Error',
+              text: error.error.Message,
+              icon: 'error',
             });
             break;
         }
       }
-    }, error => {
-      console.error(error);
-      switch (error.status) {
-        case 400:
-          Swal.fire({
-            title: 'Error',
-            text: error.error.Message,
-            icon: 'error',
-          });
-          break;
-        case 500:
-          Swal.fire({
-            title: 'Error',
-            text: error.error.Message,
-            icon: 'error',
-          });
-          break;
-        case 409:
-          Swal.fire({
-            title: 'Error',
-            text: error.error.Message,
-            icon: 'error',
-          });
-          break;
-      }
-    });
+    );
   }
 }

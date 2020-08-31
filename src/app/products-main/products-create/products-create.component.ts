@@ -97,10 +97,8 @@ export class ProductsCreateComponent implements OnInit {
       .postFile(this.product.prd_nom, this.fileToUpload)
       .subscribe((data) => {
         this.product.prd_img = data;
-        console.log(data);
         this.productService.create(this.product).subscribe((result) => {
           this.submitted = false;
-          console.log(result);
           this.flagToReload.emit(true);
         });
       });
