@@ -59,7 +59,6 @@ export class CategoriesListComponent implements OnInit {
       .then((result) => {
         if (result.value) {
           this.categoriasService.delete(categoria).subscribe((result) => {
-            console.log(result);
             this.ngOnInit();
           });
         }

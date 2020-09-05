@@ -30,7 +30,6 @@ export class ServiceInterceptor implements HttpInterceptor {
     return response.handle(request).do(
       (next) => {
         if (next instanceof HttpResponse) {
-          console.info(next);
           switch (next.status) {
             case 201:
               Swal.fire({
@@ -50,7 +49,6 @@ export class ServiceInterceptor implements HttpInterceptor {
         }
       },
       (error) => {
-        console.error(error);
         switch (error.status) {
           case 400:
             Swal.fire({

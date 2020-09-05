@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/observable';
 import {map, retry} from 'rxjs/operators';
-import {isNullOrUndefined} from 'util';
-import { Usuario, Login } from '../models/usuario';
-import { stringify } from '@angular/compiler/src/util';
+import { Login } from '../models/usuario';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -31,14 +29,13 @@ export class LoginService {
     return this.http.post<any>(this.url, authData, this.httpOptions).pipe(
       map((resp) => {
         this.guardarToken(resp.token);
-        console.log(resp);
         return resp;
       })
     );
   }
 
    logout(): void {
-     localStorage.removeItem('token');
+     localStorage.clear( );
    }
 
    leerToken(): any{
@@ -56,19 +53,24 @@ export class LoginService {
      hoy.setSeconds(600);
      localStorage.setItem('expira', hoy.getTime().toString());
    }
-   roleMatch(allowedRoles): boolean{
-    let isMatch = false;
+   roleMatch(allowedRoles: Array<string>): boolean{
+     /*let isMatch = false;
     const payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
-    console.log(payLoad);
     const userRole = payLoad.rol;
-    console.log(userRole);
     allowedRoles.forEach(element => {
       if (userRole === element){
         isMatch = true;
         return true;
       }
     });
-    return isMatch;
+    return isMatch;*/
+     const payLoad = JSON.parse(
+       window.atob(localStorage.getItem('token').split('.')[1])
+     );
+     const userRole = payLoad.rol;
+     return allowedRoles.indexOf(userRole) !== -1;
+
+     // const payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
    }
 
    verificarRol(): void{

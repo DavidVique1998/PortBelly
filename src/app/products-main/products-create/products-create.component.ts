@@ -1,11 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
-import {faDollarSign, faRuler, faPager, faSave, faTimes, faPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { faIdCard, faTag, faAlignJustify, faGripVertical, faImage, faList} from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import {
+  faDollarSign,
+  faRuler,
+  faPager,
+  faSave,
+  faTimes,
+  faCartPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faTag,
+  faGripVertical,
+  faList,
+} from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
-import { Observable } from 'rxjs';
 import { Product } from '../../models/product';
 import { ProductService } from '../../service/product.service';
 import { ImageService } from '../../service/image.service';
@@ -13,7 +22,12 @@ import { Categoria } from '../../models/categoria';
 import { CategoriaService } from '../../service/categoria.service';
 import { Promocion } from '../../models/promocion';
 import { PromocionService } from '../../service/promocion.service';
-
+import {
+  NgxFileDropEntry,
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+} from 'ngx-file-drop';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-products-create',
   templateUrl: './products-create.component.html',
@@ -21,19 +35,10 @@ import { PromocionService } from '../../service/promocion.service';
   providers: [ImageService],
 })
 export class ProductsCreateComponent implements OnInit {
-  faUserPlus = faUserPlus;
-  faListAlt = faListAlt;
-  faEye = faEye;
-  faPencilAlt = faPencilAlt;
-  faTrash = faTrash;
-  aPlus = faPlus;
   faTimes = faTimes;
   faSave = faSave;
-  faIdCard = faIdCard;
   faTag = faTag;
-  faAlignJustify = faAlignJustify;
   faGripVertical = faGripVertical;
-  faImage = faImage;
   faDollarSign = faDollarSign;
   faRuler = faRuler;
   faPager = faPager;
@@ -43,25 +48,27 @@ export class ProductsCreateComponent implements OnInit {
   caption: Variable;
   @Input() product: Product;
   @Input() title: string;
-  @Output() flagToReload = new EventEmitter<boolean>();
   public formProduct: FormGroup;
   submitted = false;
+  llave = false;
   imageUrl = '/assets/img/UploadImage.png';
   fileToUpload: File = null;
   categorias: Categoria[];
   promociones: Promocion[];
+  public files: NgxFileDropEntry[] = [];
   constructor(
     private imageService: ImageService,
     private productService: ProductService,
     private formBuilder: FormBuilder,
     private categoriaService: CategoriaService,
-    private promocionService: PromocionService
+    private promocionService: PromocionService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.product = new Product();
     this.formProduct = this.formBuilder.group({
-      prd_img: ['', [Validators.required]],
+      // prd_img: ['', [Validators.required]],
       cat_id: ['', [Validators.required]],
       prm_id: ['', [Validators.required]],
       prd_nom: ['', [Validators.required]],
@@ -81,7 +88,7 @@ export class ProductsCreateComponent implements OnInit {
     const user = this.formProduct.value;
     console.log(user);
   }
-  onSubmit(image): void {
+  async onSubmit(image): Promise<void> {
     this.submitted = true;
 
     if (this.formProduct.invalid) {
@@ -93,31 +100,40 @@ export class ProductsCreateComponent implements OnInit {
       console.error('Error en formulario');
       return;
     }
-    this.imageService
-      .postFile(this.product.prd_nom, this.fileToUpload)
-      .subscribe((data) => {
-        this.product.prd_img = data;
-        this.productService.create(this.product).subscribe((result) => {
-          this.submitted = false;
-          this.flagToReload.emit(true);
-        });
-      });
+    // Imagen y producto funcioanl porfinnnnn!!!!
+    const fd = new FormData();
+    fd.append('image', this.fileToUpload, this.fileToUpload.name);
+    this.http
+      .post('https://localhost:44386/api/Imagen', fd, {
+        headers: {
+          // 'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.product.prd_img = res.toString();
+          this.productService.create(this.product).subscribe((result) => {
+            this.onReset();
+            this.ngOnInit();
+            this.submitted = false;
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+        // -------------------------------------------
+      );
   }
   onReset(): void {
     this.submitted = false;
     this.formProduct.reset();
     this.imageUrl = '/assets/img/UploadImage.png';
     this.product = new Product();
+    this.llave = false;
   }
-  handleFileInput(file: FileList): void {
-    this.fileToUpload = file.item(0);
-    // Show image preview
-    const reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
-    };
-    reader.readAsDataURL(this.fileToUpload);
-  }
+
   listCategoria(): void {
     this.categoriaService
       .list()
@@ -127,5 +143,56 @@ export class ProductsCreateComponent implements OnInit {
     this.promocionService
       .list()
       .subscribe((result) => (this.promociones = result));
+  }
+
+  // --------------------------------------------------------------------------------------
+  // Drop File Beta
+
+  public dropped(files: NgxFileDropEntry[]): void {
+    this.files = files;
+    for (const droppedFile of files) {
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          // Here you can access the real file
+          console.log(droppedFile.relativePath, file);
+          const reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.imageUrl = event.target.result;
+          };
+          this.fileToUpload = file;
+          reader.readAsDataURL(file);
+          this.llave = true;
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+
+  public fileOver(event): void {
+    console.log(event);
+  }
+
+  public fileLeave(event): void {
+    console.log(event);
+  }
+  // ----------------------Metodo mandar imagen funcionando
+  onUpLoad(): void {
+    const fd = new FormData();
+    fd.append('image', this.fileToUpload, this.fileToUpload.name);
+    this.http
+      .post('https://localhost:44386/api/Imagen', fd, {
+        headers: {
+          // 'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

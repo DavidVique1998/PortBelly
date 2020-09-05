@@ -3,6 +3,8 @@ import { Product } from '../../models/product';
 import { ProductService } from '../../service/product.service';
 import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert2';
+import { ImageService } from 'src/app/service/image.service';
+import { error } from '@angular/compiler/src/util';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -14,9 +16,9 @@ export class ProductsListComponent implements OnInit {
   faEye = faEye;
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
-  products: Product[];
+  products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private imageService: ImageService,) { }
 
   ngOnInit(): void {
     this.list();
@@ -34,8 +36,14 @@ export class ProductsListComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this.productService.delete(p).subscribe(result => console.log(result));
-        this.OnReset();
+        this.imageService.deleteFile(p.prd_img).subscribe(res => {console.log(res),
+          this.productService.delete(p).subscribe(respuesta => console.log(respuesta)),
+          this.ngOnInit(),
+          this.OnReset();
+        }, e => {
+          console.log(e);
+        }
+        );
       }
     });
   }
@@ -45,6 +53,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   OnReset(): void{
-    window.location.reload();
+    this.ngOnInit();
   }
 }

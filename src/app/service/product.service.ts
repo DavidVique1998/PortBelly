@@ -44,7 +44,6 @@ export class ProductService {
   }
   update(p: Product): Observable<any>{
     const alumnoBody = JSON.stringify(p);
-    console.log(p);
     return this.http.put<any>(this.url, p, this.httpOptions);
   }
 

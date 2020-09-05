@@ -3,13 +3,12 @@ import { ProductInCart } from '../../models/product-in-cart';
 import { ProductInCartService } from '../../service/product-in-cart.service';
 import { faCartPlus, faList, faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from 'sweetalert2';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { ImageService } from '../../service/image.service';
 import {ActivatedRoute} from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Product } from 'src/app/models/product';
-import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
-import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/models/usuario';
+import { ClienteService } from '../../service/cliente.service';
+import { Cliente } from 'src/app/models/cliente';
 @Component({
   selector: 'app-product-in-cart-list',
   templateUrl: './product-in-cart-list.component.html',
@@ -28,11 +27,14 @@ export class ProductInCartListComponent implements OnInit {
   productsPrice: Array<number> = [];
   contador = 0;
   precioTotal = 0;
+  usuario: Usuario;
+  cliente: Cliente;
   constructor(
     private productInCartService: ProductInCartService,
     private activatedRoute: ActivatedRoute,
     private imageService: ImageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private clienteService: ClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -40,23 +42,8 @@ export class ProductInCartListComponent implements OnInit {
     this.productsPrice = [];
     this.precioTotal = 0;
     this.productsInCart = [];
-    this.list();
-  }
-
-  list(): void {
-    this.productInCartService.list().subscribe((result) => {
-      this.productsInCart = result;
-      if (this.productsInCart != null){
-        this.contador = this.productsInCart.length;
-        if (this.contador !== 0){
-          this.productsInCart.forEach(element => {
-            // console.log(element.Producto.prd_img);
-            this.getImageFromServiceEject(element.Producto.prd_img);
-            this.recibo(element);
-          });
-        }
-      }
-    });
+    // this.list();
+    this.getProductosEnCarrito();
   }
 
   recibo(productInCart: ProductInCart): void{
@@ -98,8 +85,7 @@ export class ProductInCartListComponent implements OnInit {
       })
       .then((result) => {
         if (result.value) {
-          this.productInCartService.delete(p).subscribe((result) => {
-            console.log(result);
+          this.productInCartService.delete(p).subscribe((res) => {
             this.ngOnInit();
           });
             // window.location.reload();
@@ -112,13 +98,33 @@ export class ProductInCartListComponent implements OnInit {
       (data: any) => {
         const objectURL = 'data:image/jpeg;base64,' + data;
         this.productsInCartImages.push( this.sanitizer.bypassSecurityTrustUrl(objectURL));
-        console.log(this.sanitizer.bypassSecurityTrustUrl(objectURL));
         return this.sanitizer.bypassSecurityTrustUrl(objectURL);
       },
       (error) => {
-        console.log(error);
         return '/assets/img/UploadImage.png';
       }
     );
+  }
+
+  getProductosEnCarrito(): void{
+    this.clienteService.getCliente().subscribe((param) => {
+      this.cliente = param;
+      if (this.cliente != null){
+        // ----------------------------------------------------------------------
+        this.productInCartService.getProductPenInCartByCli(this.cliente.cln_id).subscribe((parametro) => {
+          this.productsInCart = parametro;
+          if (this.productsInCart != null){
+            this.contador = this.productsInCart.length;
+            if (this.contador !== 0){
+              this.productsInCart.forEach(element => {
+                this.getImageFromServiceEject(element.Producto.prd_img);
+                this.recibo(element);
+              });
+            }
+          }
+        });
+        // -----------------------------------------------------------------------
+      }
+    });
   }
 }

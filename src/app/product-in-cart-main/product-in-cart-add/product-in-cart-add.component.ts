@@ -13,13 +13,15 @@ import { ProductInCart } from '../../models/product-in-cart';
 import { ProductInCartService } from '../../service/product-in-cart.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CartService } from '../../service/cart.service';
+import { ClienteService } from '../../service/cliente.service';
 import { Cart } from '../../models/cart';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-product-in-cart-add',
   templateUrl: './product-in-cart-add.component.html',
   styleUrls: ['./product-in-cart-add.component.css'],
-  providers: [ImageService]
+  providers: [ImageService],
 })
 export class ProductInCartAddComponent implements OnInit {
   faUserPlus = faUserPlus;
@@ -50,7 +52,8 @@ export class ProductInCartAddComponent implements OnInit {
   fileToUpload: File = null;
   base64data: string;
   imageToShow: any = '/assets/img/UploadImage.png';
-  carts: Cart[];
+  cart: Cart;
+  cliente: Cliente;
   constructor(
     private imageService: ImageService,
     private productService: ProductService,
@@ -59,16 +62,29 @@ export class ProductInCartAddComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private cartService: CartService,
-  ) { }
+    private clienteService: ClienteService,
+  ) {}
 
   ngOnInit(): void {
-    this.listCarts();
     this.productInCart = new ProductInCart();
     this.formProductInCart = this.formBuilder.group({
-      car_id: ['', [Validators.required]],
       pcr_cnt: ['', [Validators.required]],
     });
     this.getProductFromService();
+    this.getCarrito();
+  }
+
+  getCarrito(): void{
+    this.clienteService.getCliente().subscribe((param) => {
+      this.cliente = param;
+      if (this.cliente != null){
+        // ----------------------------------------------------------------------
+        this.cartService.getCartPendByCli(this.cliente.cln_id).subscribe((parametro) => {
+          this.cart = parametro;
+        });
+        // -----------------------------------------------------------------------
+      }
+    });
   }
   get f(): any {
     return this.formProductInCart.controls;
@@ -77,16 +93,16 @@ export class ProductInCartAddComponent implements OnInit {
     const user = this.formProductInCart.value;
     console.log(user);
   }
-  onSubmit(): void{
+  onSubmit(): void {
     if (this.formProductInCart.invalid) {
       Swal.fire({
         title: 'Error',
         text: 'Error en formulario',
         icon: 'error',
       });
-      console.error('Error en formulario');
       return;
     }
+    this.productInCart.car_id = this.cart.car_id;
     this.productInCart.prd_id = this.product.prd_id;
     this.productInCart.pcr_est = 'Agregado';
     console.log(this.productInCart);
@@ -124,11 +140,4 @@ export class ProductInCartAddComponent implements OnInit {
       }
     );
   }
-
-  listCarts(): void {
-    this.cartService
-      .list()
-      .subscribe((result) => (this.carts = result));
-  }
-
 }

@@ -15,8 +15,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // if (this.auth.estaAutenticado()){
     if (this.auth.estaAutenticado()){
-      const roles =  next.data['permittedRoles'] as Array<string>;
-      console.log(roles);
+      const roles =  next.data.permittedRoles as Array<string>;
       if (roles){
         if (this.auth.roleMatch(roles)){
             return true;
@@ -34,7 +33,11 @@ export class AuthGuard implements CanActivate {
       }
       return true;
     }else{
-      console.log('Esta Prohibido');
+      Swal.fire({
+        icon: 'error',
+        title: 'Inicia sesión para continuar',
+        text: 'Iniciar Sesión'
+      });
       this.router.navigateByUrl('login');
       return false;
     }

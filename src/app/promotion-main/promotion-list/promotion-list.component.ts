@@ -56,7 +56,6 @@ export class PromotionListComponent implements OnInit {
       .then((result) => {
         if (result.value) {
           this.categoriasService.delete(promocion).subscribe((result) => {
-            console.log(result);
             this.ngOnInit();
           });
         }

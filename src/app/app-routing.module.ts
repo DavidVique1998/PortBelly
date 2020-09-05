@@ -65,11 +65,11 @@ const routes: Routes = [
     path: 'productoencarrito/add/:id',
     component: ProductInCartAddComponent,
     canActivate: [AuthGuard],
-    data: { permittedRoles: ['Administrador'] },
+    data: { permittedRoles: ['Cliente'] },
   },
   { path: 'login', component: UserMainComponent },
   {
-    path: '', redirectTo: 'tienda',pathMatch: 'full'
+    path: '', redirectTo: 'tienda', pathMatch: 'full'
   }
 ];
 @NgModule({

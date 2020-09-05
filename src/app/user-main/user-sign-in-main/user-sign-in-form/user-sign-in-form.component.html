@@ -1,23 +1,14 @@
 <div class="container">
     <div class="text-center">
-        <fa-icon class="fa-2x" [icon]="faTag"></fa-icon>
+        <fa-icon class="fa-2x" [icon]="faUser"></fa-icon>
     </div>
     <hr>
 </div>
 <form [formGroup]="formUser" (ngSubmit)="onSubmit()" class="user">
     <div class="card-body">
-        <!-- <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
-            </div>
-            <input formControlName="uso_usu" type="text" class="form-control form-control-user" [(ngModel)]="user.uso_usu" [ngClass]="{'is-invalid': submitted &&  f.uso_usu.errors}" placeholder="Usuario" />
-            <div *ngIf="submitted && f.uso_usu.errors" class="invalid-feedback">
-                <div *ngIf="f.uso_usu.errors.requerido">El usuario es requerido</div>
-            </div>
-        </div> -->
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
+                <span class="input-group-text"><fa-icon [icon]='faEnvelope'></fa-icon></span>
             </div>
             <input formControlName="uso_cor" type="text" class="form-control form-control-user" [(ngModel)]="usuario.correo" [ngClass]="{'is-invalid': submitted &&  f.uso_cor.errors}" placeholder="Correo" [pattern]="emailPattern"/>
             <div *ngIf="submitted && f.uso_cor.errors" class="invalid-feedback">
@@ -26,7 +17,7 @@
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text"><fa-icon [icon]='faIdCard'></fa-icon></span>
+                <span class="input-group-text"><fa-icon [icon]='faKey'></fa-icon></span>
             </div>
             <input formControlName="uso_con" type="password" class="form-control form-control-user" [(ngModel)]="usuario.password" [ngClass]="{'is-invalid':submitted &&  f.uso_con.errors}" placeholder="Contraseña" />
             <div *ngIf="submitted && f.uso_con.errors" class="invalid-feedback">
@@ -35,7 +26,7 @@
         </div>
         <div class="btn-group">
             <button type="submit" class="btn btn-success">
-                <fa-icon [icon]='faSave'></fa-icon>&nbsp;Guardar
+                <fa-icon [icon]='faSignInAlt'></fa-icon>&nbsp;Ingresar
             </button>
             <button type="reset" (click)="onReset()" class="btn btn-danger">
                 <fa-icon [icon]='faTimes'></fa-icon>&nbsp;Cancelar

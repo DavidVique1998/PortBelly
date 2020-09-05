@@ -43,8 +43,12 @@ export class ProductInCartService {
     );
   }
   update(p: ProductInCart): Observable<any>{
-    const alumnoBody = JSON.stringify(p);
-    console.log(p);
-    return this.http.put<any>(this.url, p, this.httpOptions);
+    // const alumnoBody = JSON.stringify(p);
+    return this.http.put<any>(this.url, p, this.httpOptions).pipe(
+      retry(1)
+    );
+  }
+  getProductPenInCartByCli(id: number): Observable<any>{
+    return this.http.get<ProductInCart[]>(this.url + '/' + 'MisProductosEnCarritoPen?id=' + id, this.httpOptions).pipe(retry(1));
   }
 }

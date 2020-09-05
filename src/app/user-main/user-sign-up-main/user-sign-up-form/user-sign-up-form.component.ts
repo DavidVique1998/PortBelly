@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
-import {faDollarSign, faRuler, faPager, faSave, faTimes, faPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { faIdCard, faTag, faAlignJustify, faGripVertical, faImage, faList} from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faTimes, faUser, faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { faIdCard, faTag, faKey, faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../../service/usuario.service';
@@ -13,24 +13,15 @@ import { Usuario } from 'src/app/models/usuario';
   styleUrls: ['./user-sign-up-form.component.css']
 })
 export class UserSignUpFormComponent implements OnInit {
+  faSignInAlt = faSignInAlt;
+  faKey = faKey;
+  faEnvelope = faEnvelope;
+  faUser = faUser;
   faUserPlus = faUserPlus;
-  faListAlt = faListAlt;
-  faEye = faEye;
-  faPencilAlt = faPencilAlt;
-  faTrash = faTrash;
-  aPlus = faPlus;
   faTimes = faTimes;
   faSave = faSave;
   faIdCard = faIdCard;
   faTag = faTag;
-  faAlignJustify = faAlignJustify;
-  faGripVertical = faGripVertical;
-  faImage = faImage;
-  faDollarSign = faDollarSign;
-  faRuler = faRuler;
-  faPager = faPager;
-  faCartPlus = faCartPlus;
-  faList = faList;
   public formUser: FormGroup;
   @Input() user: Usuario;
   submitted = false;

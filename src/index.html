@@ -1,13 +1,44 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>PortBelly</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 </head>
 <body>
   <app-root></app-root>
+  <script defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzdJ27zsCyo1m0SiGP3iw0wICk6QdWnsM">
+</script>
 </body>
+<style>
+  .chatbot {
+    position: fixed !important;
+    z-index: 9999 !important;
+  }
+  df-messenger {
+          --df-messenger-bot-message: #fafafa;
+          --df-messenger-button-titlebar-color: #fafafa;
+          --df-messenger-button-titlebar-font-color:#2c3e50;
+          --df-messenger-chat-background-color: #ecf0f1;
+          --df-messenger-font-color: #2c3e50;
+          --df-messenger-send-icon: #20bf6b;
+          --df-messenger-user-message: #fafafa;
+          --df-messenger-minimized-chat-close-icon-color:#20bf6b;
+      }
+</style>
+
+<div class="chatbot">
+  <df-messenger
+  style="z-index: 9999"
+  intent="WELCOME"
+  chat-title="PortBelly"
+  agent-id="07983968-4779-4c9c-b8af-ec47f99c2094"
+  language-code="es"
+  chat-icon="https://i.ibb.co/SR8r6Z4/logo.png">
+</df-messenger>
 </html>

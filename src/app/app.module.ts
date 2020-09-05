@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { GoogleMapsModule } from '@angular/google-maps';
 registerLocaleData(localeEs);
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -38,6 +39,8 @@ import { UserSignInMainComponent } from './user-main/user-sign-in-main/user-sign
 import { UserSignUpMainComponent } from './user-main/user-sign-up-main/user-sign-up-main.component';
 import { UserSignInFormComponent } from './user-main/user-sign-in-main/user-sign-in-form/user-sign-in-form.component';
 import { UserSignUpFormComponent } from './user-main/user-sign-up-main/user-sign-up-form/user-sign-up-form.component';
+import { ContactanosComponent } from './contactanos/contactanos.component';
+import {NgxFileDropModule} from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ import { UserSignUpFormComponent } from './user-main/user-sign-up-main/user-sign
     UserSignUpMainComponent,
     UserSignInFormComponent,
     UserSignUpFormComponent,
+    ContactanosComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,8 @@ import { UserSignUpFormComponent } from './user-main/user-sign-up-main/user-sign
     HttpClientModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
+    NgxFileDropModule,
   ],
   providers: [
     ProductService,

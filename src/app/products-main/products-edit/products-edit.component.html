@@ -20,13 +20,21 @@
               <img [src]="imageToShow" style="width: 350px; height:300px">
             </span>
           </div>
-          <input  type="file" (change)="handleFileInput($event.target.files)"
-            class="form-control-file"  placeholder="Imagen" #Image accept="image/*"  formnovalidate="formnovalidate"/>
+          <!-- <input  type="file" (change)="handleFileInput($event.target.files)"
+            class="form-control-file"  placeholder="Imagen" #Image accept="image/*"  formnovalidate="formnovalidate"/> -->
+            <ngx-file-drop  dropZoneLabel="Drop files here" #Image accept="image/*"  (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              Arrastre una imagen a este lugar ó....<br>
+              <button type="button" #Image accept="image/*" (click)="openFileSelector()">Selecciona una imagen</button>
+            </ng-template>
+          </ngx-file-drop>
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-6 ">
         <div class="row">
           <div class="col">
+            Categoría
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">
@@ -41,6 +49,7 @@
             </div>
           </div>
           <div class="col">
+            Promoción
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">
@@ -62,6 +71,7 @@
           <input formControlName="prd_nom" type="text" class="form-control " [(ngModel)]="product.prd_nom"
             placeholder="Nombre" required />
         </div>
+        Talla
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -69,11 +79,12 @@
             </span>
           </div>
           <select formControlName="prd_tal" [(ngModel)]="product.prd_tal" class="form-control" required>
-            <option value='XL'>XL</option>
+            <option *ngFor="let item of tallas" [value]="item">{{item}}</option>
+            <!-- <option value='XL'>XL</option>
             <option value='L'>L</option>
             <option value='M'>M</option>
             <option value='S'>S</option>
-            <option value='XS'>XS</option>
+            <option value='XS'>XS</option>  -->
           </select>
         </div>
         <div class="input-group mb-3">

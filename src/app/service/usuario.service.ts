@@ -19,54 +19,8 @@ export class UsuarioService {
     })
   };
   constructor(private http: HttpClient) { }
-  setUser(user: Usuario): void {
-    // tslint:disable-next-line: variable-name
-    const user_string = JSON.stringify(user);
-    localStorage.setItem('currentUser', user_string);
-  }
-
-  setToken(token: Token): void{
-    localStorage.setItem('accesToken', JSON.stringify(token));
-  }
-
-  getToken(): any{
-    return localStorage.getItem('accesToken');
-  }
-
-  getCurrentUser(): Observable<any>{
-    // tslint:disable-next-line: variable-name
-    const user_string = localStorage.getItem('currentUser');
-    if (!isNullOrUndefined(user_string)){
-      const user = JSON.parse(user_string);
-      return user;
-    }
-    else{
-      return null;
-    }
-  }
-  loginUser(criterio: string, password: string): Observable<any>{
-    // api/Usuario?parametro={parametro}
-    return this.http
-      .post<any>(
-        this.url + '?parametro={parametro}&password={password}',
-        { criterio, password },
-        this.httpOptions
-      )
-      .pipe(
-        retry(1),
-        map((data) => data)
-      );
-  }
-
-  logOutUser(): void{
-    localStorage.removeItem('currentUser');
-  }
   create(usuario: Usuario): Observable<any> {
-    const categoriasBody = JSON.stringify(usuario);
-    if (usuario.uso_id === undefined){
-      return this.http.post<any>(this.url, categoriasBody, this.httpOptions).pipe(retry(1), map(data => data));
-    }
-    return this.http.put<any>(this.url, categoriasBody, this.httpOptions).pipe(retry(1));
+    return this.http.post<any>(this.url, usuario, this.httpOptions);;
   }
   list(): Observable<Usuario[]>{
     return this.http.get<Usuario[]>(this.url, this.httpOptions)
