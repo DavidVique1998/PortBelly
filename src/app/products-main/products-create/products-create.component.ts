@@ -57,7 +57,6 @@ export class ProductsCreateComponent implements OnInit {
   promociones: Promocion[];
   public files: NgxFileDropEntry[] = [];
   constructor(
-    private imageService: ImageService,
     private productService: ProductService,
     private formBuilder: FormBuilder,
     private categoriaService: CategoriaService,
@@ -112,7 +111,6 @@ export class ProductsCreateComponent implements OnInit {
       })
       .subscribe(
         (res) => {
-          console.log(res);
           this.product.prd_img = res.toString();
           this.productService.create(this.product).subscribe((result) => {
             this.onReset();
@@ -156,7 +154,6 @@ export class ProductsCreateComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
           // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
           const reader = new FileReader();
           reader.onload = (event: any) => {
             this.imageUrl = event.target.result;

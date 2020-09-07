@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -20,7 +20,7 @@ import { ProductsViewComponent } from './products-main/products-view/products-vi
 import { ProductMarketComponent } from './products-main/product-market/product-market.component';
 import { ProductsCreateComponent } from './products-main/products-create/products-create.component';
 import { ImageService } from './service/image.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CategoriesMainComponent } from './categories-main/categories-main.component';
 import { CategoriesListComponent } from './categories-main/categories-list/categories-list.component';
@@ -40,7 +40,18 @@ import { UserSignUpMainComponent } from './user-main/user-sign-up-main/user-sign
 import { UserSignInFormComponent } from './user-main/user-sign-in-main/user-sign-in-form/user-sign-in-form.component';
 import { UserSignUpFormComponent } from './user-main/user-sign-up-main/user-sign-up-form/user-sign-up-form.component';
 import { ContactanosComponent } from './contactanos/contactanos.component';
-import {NgxFileDropModule} from 'ngx-file-drop';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { PaymentMainComponent } from './payment-main/payment-main.component';
+import { PaymentFormComponent } from './payment-main/payment-form/payment-form.component';
+import {NgxStripeModule} from 'ngx-stripe';
+import { BillMainComponent } from './bill-main/bill-main.component';
+import { BillFormComponent } from './bill-main/bill-form/bill-form.component';
+import { ChartsModule } from 'ng2-charts';
+import { ReportMainComponent } from './report-main/report-main.component';
+import { ReportDetailsComponent } from './report-main/report-details/report-details.component';
+import { BarChartComponent } from './report-main/bar-chart/bar-chart.component';
+import { PieChartComponent } from './report-main/pie-chart/pie-chart.component';
+// import {} from '@stripe/stripe-js';
 
 @NgModule({
   declarations: [
@@ -71,6 +82,14 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     UserSignInFormComponent,
     UserSignUpFormComponent,
     ContactanosComponent,
+    PaymentMainComponent,
+    PaymentFormComponent,
+    BillMainComponent,
+    BillFormComponent,
+    ReportMainComponent,
+    ReportDetailsComponent,
+    BarChartComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +101,9 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     ReactiveFormsModule,
     GoogleMapsModule,
     NgxFileDropModule,
+    NgxStripeModule.forRoot('pk_test_51HOS6pLhIET9gHWLGJdFB5a8UfCdZknGfi7HgfieaXSznHII8HMGHm4jngswuBvmEFU5SCt9LXH2dBUYpRfxjCkT00z0d52cND'),
+    ChartsModule,
+    // Stripe,
   ],
   providers: [
     ProductService,
@@ -98,7 +120,7 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     },
     {
       provide: LOCALE_ID,
-      useValue : 'es-EC'
+      useValue: 'es-EC',
     },
   ],
   bootstrap: [AppComponent],

@@ -11,8 +11,13 @@ export class ClienteService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST,GET,PUT,DELETE',
+      'Content-Disposition': 'multipart/form-data',
+      enctype: 'multipart/form-data',
+      Authorization: 'Bearer ' + localStorage.getItem('token')
     })
   };
   constructor(private http: HttpClient) { }
@@ -33,10 +38,7 @@ export class ClienteService {
     );
     cliente.uso_id = payLoad.id;
     if (cliente.uso_id !== null) {
-      return this.http.get<Cliente>(this.url + '/' + 'GetCliente?id=' + cliente.uso_id, this.httpOptions)
-      .pipe(
-        retry(1)
-      );
+      return this.http.get<Cliente>(this.url + '/' + 'GetCliente?id=' + cliente.uso_id, this.httpOptions);
     }
   }
 }

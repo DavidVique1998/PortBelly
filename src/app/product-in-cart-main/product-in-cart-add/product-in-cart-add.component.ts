@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
-import {faDollarSign, faRuler, faPager, faSave, faTimes, faPlus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { faIdCard, faTag, faAlignJustify, faGripVertical, faImage, faList} from '@fortawesome/free-solid-svg-icons';
+
+import {faDollarSign, faRuler, faPager, faTimes,  faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTag, faGripVertical, faList} from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
@@ -16,6 +16,7 @@ import { CartService } from '../../service/cart.service';
 import { ClienteService } from '../../service/cliente.service';
 import { Cart } from '../../models/cart';
 import { Cliente } from 'src/app/models/cliente';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-product-in-cart-add',
@@ -24,19 +25,9 @@ import { Cliente } from 'src/app/models/cliente';
   providers: [ImageService],
 })
 export class ProductInCartAddComponent implements OnInit {
-  faUserPlus = faUserPlus;
-  faListAlt = faListAlt;
-  faEye = faEye;
-  faPencilAlt = faPencilAlt;
-  faTrash = faTrash;
-  aPlus = faPlus;
   faTimes = faTimes;
-  faSave = faSave;
-  faIdCard = faIdCard;
   faTag = faTag;
-  faAlignJustify = faAlignJustify;
   faGripVertical = faGripVertical;
-  faImage = faImage;
   faDollarSign = faDollarSign;
   faRuler = faRuler;
   faPager = faPager;
@@ -54,6 +45,7 @@ export class ProductInCartAddComponent implements OnInit {
   imageToShow: any = '/assets/img/UploadImage.png';
   cart: Cart;
   cliente: Cliente;
+  IntPosiPattern = '0+\.[0-9]*[1-9][0-9]*$';
   constructor(
     private imageService: ImageService,
     private productService: ProductService,
@@ -102,14 +94,24 @@ export class ProductInCartAddComponent implements OnInit {
       });
       return;
     }
-    this.productInCart.car_id = this.cart.car_id;
-    this.productInCart.prd_id = this.product.prd_id;
-    this.productInCart.pcr_est = 'Agregado';
-    console.log(this.productInCart);
-    this.productInCartService.create(this.productInCart).subscribe((result) => {
-      this.submitted = false;
-      console.log(result);
-    });
+    if (this.productInCart.pcr_cnt !== 0){
+      this.productInCart.car_id = this.cart.car_id;
+      this.productInCart.prd_id = this.product.prd_id;
+      this.productInCart.pcr_est = 'Agregado';
+      this.productInCartService.create(this.productInCart).subscribe((result) => {
+        this.submitted = false;
+        this.ngOnInit();
+      }, e => {
+        console.log(e);
+      });
+    }else{
+      Swal.fire({
+        title: 'Error',
+        text: 'Error la cantidad debe ser mayor a cero',
+        icon: 'error',
+      });
+      return;
+    }
   }
   onReset(): void {
     this.submitted = false;
@@ -121,8 +123,8 @@ export class ProductInCartAddComponent implements OnInit {
   getProductFromService(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.product = new Product();
-      if (params['id']) {
-        this.productService.retrive(params['id']).subscribe((result) => {
+      if (params.id) {
+        this.productService.retrive(params.id).subscribe((result) => {
           (this.product = result), this.getImageFromService();
         });
       }
@@ -135,8 +137,8 @@ export class ProductInCartAddComponent implements OnInit {
         const objectURL = 'data:image/jpeg;base64,' + data;
         this.imageToShow = this.sanitizer.bypassSecurityTrustUrl(objectURL);
       },
-      (error) => {
-        console.log(error);
+      (e) => {
+        console.log(e);
       }
     );
   }

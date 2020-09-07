@@ -9,18 +9,18 @@
   </div>
 </div>
 <hr>
-<form [formGroup]="formProductInCart" (ngSubmit)="onSubmit()" class="user"
-  #imageForm=ngForm>
+<form [formGroup]="formProductInCart" (ngSubmit)="onSubmit()" class="user" #imageForm=ngForm>
   <div class="card-body">
     <div class="row row-cols-2" style="align-items: center;">
       <div class="col-12 col-sm-12 col-md-6 ">
-        <div class="input-group mb-3" >
+        <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
               <img [src]="imageToShow" style="width: 350px; height:300px">
             </span>
           </div>
         </div>
+        ID del Producto
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -31,6 +31,7 @@
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-6 " style="padding-left: 100px;">
+        Nombre
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -39,6 +40,7 @@
           </div>
           <label class="form-control ">{{ product.prd_nom}} </label>
         </div>
+        Talla
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -47,6 +49,7 @@
           </div>
           <label class="form-control ">{{ product.prd_tal }} </label>
         </div>
+        Características
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -55,6 +58,7 @@
           </div>
           <label class="form-control ">{{ product.prd_crt }} </label>
         </div>
+        Precio
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -63,18 +67,24 @@
           </div>
           <label class="form-control ">{{ product.prd_prc }} </label>
         </div>
+        Cantidad
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
               <fa-icon [icon]="faGripVertical"></fa-icon>
             </span>
           </div>
-          <input formControlName="pcr_cnt" type="number" min="1" max="{{product.prd_cnt}}"
-            class="form-control form-control-user" [(ngModel)]="productInCart.pcr_cnt"
-            [ngClass]="{'is-invalid': submitted && f.pcr_cnt.errors}" placeholder="Cantidad" />
-          <div *ngIf="submitted && f.pcr_cnt.errors" class="invalid-feedback">
-            <div *ngIf="f.pcr_cnt.errors.requerido">La cantidad es requerida</div>
-          </div>
+          <span >
+            <input formControlName="pcr_cnt" type="number" min="1" max="{{product.prd_cnt}}" *ngIf="product.prd_cnt !='0'"
+              class="form-control form-control-user" [(ngModel)]="productInCart.pcr_cnt"
+              [ngClass]="{'is-invalid': submitted && f.pcr_cnt.errors}" placeholder="Cantidad" pattern="\d+" />
+            <div *ngIf="submitted && f.pcr_cnt.errors" class="invalid-feedback">
+              <div *ngIf="f.pcr_cnt.errors.requerido">La cantidad es requerida</div>
+            </div>
+            <div *ngIf="product.prd_cnt =='0'" style="color: red;"> 
+              Agotado*
+            </div>
+          </span>
         </div>
         <div class="btn-group text-center">
           <button type="submit" [disabled]=" !formProductInCart.valid  " class="btn btn-success">

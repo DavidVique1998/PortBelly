@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Cart } from '../models/cart';
 import {Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
-import { ClienteService } from '../service/cliente.service';
-import { Cliente } from 'src/app/models/cliente';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,11 +11,24 @@ export class CartService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
     })
   };
-  constructor(private http: HttpClient,  private clienteService: ClienteService) { }
+
+//   {headers: {
+//     'Content-Type': 'application/json',
+//     'Access-Control-Allow-Headers': 'Content-Type',
+//     'Access-Control-Allow-Methods': 'POST',
+//     'Access-Control-Allow-Origin': '*',
+//     'Content-Disposition': 'multipart/form-data',
+//     Accept: 'application/json',
+//     Authorization: 'Bearer ' + localStorage.getItem('token'),
+//     enctype: 'multipart/form-data'
+//   },
+// }
+  constructor(private http: HttpClient) { }
   // Apartado para los carritos de manera normal
 
   retrive(id: number): Observable<Cart>{

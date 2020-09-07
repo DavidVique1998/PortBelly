@@ -69,8 +69,8 @@ export class ServiceInterceptor implements HttpInterceptor {
             break;
           case 409:
             Swal.fire({
-              title: 'Error',
-              text: error.error.Message,
+              title: 'Error 409',
+              text: 'La petición entro en conflicto' + error.error.Message,
               icon: 'error',
             });
             break;

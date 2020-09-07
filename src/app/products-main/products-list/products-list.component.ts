@@ -53,6 +53,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   OnReset(): void{
+    // this.products = [];
     this.ngOnInit();
   }
 }

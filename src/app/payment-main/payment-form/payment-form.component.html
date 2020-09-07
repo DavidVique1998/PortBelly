@@ -1,0 +1,97 @@
+<form novalidate (ngSubmit)="createToken()" [formGroup]="formPayment">
+  <input type="text" formControlName="pgo_nom" placeholder="Jane Doe">
+  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" ></ngx-stripe-card>
+  <button type="submit">
+    CREATE TOKEN
+  </button>
+</form>
+
+<div class="container">
+  <div class="text-center">
+    <fa-icon class="fa-2x" [icon]="faUserPlus"></fa-icon>
+  </div>
+  <hr>
+</div>
+<form [formGroup]="formPayment" (ngSubmit)="onSubmit()" class="user">
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <fa-icon [icon]='faUser'></fa-icon>
+        </span>
+      </div>
+      <input formControlName="pgo_nom" type="text" class="form-control form-control-user" [(ngModel)]="payment.pgo_nom"
+        [ngClass]="{'is-invalid':submitted && f.pgo_nom.errors}" placeholder="Nombre" />
+      <div *ngIf=" submitted && f.pgo_nom.errors" class="invalid-feedback">
+        <div *ngIf="f.pgo_nom.errors.requerido">El nombre es requerido</div>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <fa-icon [icon]='faEnvelope'></fa-icon>
+        </span>
+      </div>
+      <input formControlName="pgo_ntg" type="text" class="form-control form-control-user" [(ngModel)]="payment.pgo_ntg"
+        [ngClass]="{'is-invalid':submitted && f.pgo_ntg.errors}" placeholder="Número de tarjeta" />
+      <div *ngIf="submitted && f.pgo_ntg.errors" class="invalid-feedback">
+        <div *ngIf="f.pgo_ntg.errors.requerido">El número de tarjeta es requerido</div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]='faIdCard'></fa-icon>
+                  </span>
+                </div>
+                <input formControlName="pgo_fven_mes" type="text" class="form-control form-control-user"
+                   [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}"
+                  placeholder="Mes de vencimiento" />
+                <div *ngIf="submitted && f.pgo_fven_mes.errors" class="invalid-feedback">
+                  <div *ngIf="f.pgo_fven_mes.errors.requerido">El mes de vencimiento es requerido</div>
+                </div>
+              </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]='faIdCard'></fa-icon>
+                  </span>
+                </div>
+                <input formControlName="pgo_fven_year" type="text" class="form-control form-control-user"
+                   [ngClass]="{'is-invalid':submitted && f.pgo_fven_year}"
+                  placeholder="Año de vencimiento" />
+                <div *ngIf="submitted && f.pgo_fven_year.errors" class="invalid-feedback">
+                  <div *ngIf="f.pgo_fven_year.errors.requerido">El año de vencimiento es requerido</div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <fa-icon [icon]='faKey'></fa-icon>
+        </span>
+      </div>
+      <input formControlName="pgo_cseg" type="text" class="form-control form-control-user"
+        [(ngModel)]="payment.pgo_cseg" [ngClass]="{'is-invalid':submitted && f.pgo_cseg.errors}"
+        placeholder="Código de seguridad" />
+      <div *ngIf=" submitted && f.pgo_cseg.errors" class="invalid-feedback" pattern="\d+">
+        <div *ngIf="f.pgo_cseg.errors.requerido">El código de seguridad es requerido</div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success">
+        <fa-icon [icon]='faSignInAlt'></fa-icon>&nbsp;Guardar
+      </button>
+      <button type="reset" (click)="onReset()" class="btn btn-danger">
+        <fa-icon [icon]='faTimes'></fa-icon>&nbsp;Cancelar
+      </button>
+    </div>
+  </div>
+</form>
+<hr>

@@ -10,7 +10,10 @@ import { PromotionMainComponent } from './promotion-main/promotion-main.componen
 import { ProductInCartAddComponent } from './product-in-cart-main/product-in-cart-add/product-in-cart-add.component';
 import { ProductInCartListComponent} from './product-in-cart-main/product-in-cart-list/product-in-cart-list.component';
 import { UserMainComponent} from './user-main/user-main.component';
+import {PaymentFormComponent} from './payment-main/payment-form/payment-form.component';
 import {AuthGuard} from './guards/auth.guard';
+import { ReportDetailsComponent} from './report-main/report-details/report-details.component';
+import { BillFormComponent} from './bill-main/bill-form/bill-form.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   {
@@ -70,7 +73,24 @@ const routes: Routes = [
   { path: 'login', component: UserMainComponent },
   {
     path: '', redirectTo: 'tienda', pathMatch: 'full'
-  }
+  },
+  { path: 'pago',
+    component: PaymentFormComponent,
+    canActivate: [AuthGuard],
+    data: {permittedRoles: ['Cliente']}
+  },
+  {
+    path: 'informes',
+    component: ReportDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Administrador'] },
+  },
+  {
+    path: 'factura',
+    component: BillFormComponent,
+    canActivate: [AuthGuard],
+    data: { permittedRoles: ['Cliente'] },
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

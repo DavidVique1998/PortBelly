@@ -13,7 +13,7 @@
     </div>
   </div>
   <hr>
-  <!-- <div *ngIf="productsInCart.length!=0"> -->
+  <div *ngIf="productsInCart.length !=0">
     <div class="row">
       <div class="col-xl-8 col-md-12 col-sm-12 col-12" style="text-align: center;">
         <h5>Listado de Producto en carrito</h5>
@@ -71,13 +71,13 @@
             <h5>Nº Productos: {{contador}}</h5>
             <h5>Total: {{precioTotal|number:"1.2-2"}}</h5>
             <button>
-              <!-- <h6> <a class="agregarBotton" [routerLink]="['/productoencarrito/add',product.prd_id]" >Agregar al carrito</a></h6> -->
+              <h6> <a class="agregarBotton" [routerLink]="['/factura']" >Completar Pago</a></h6>
               <!-- <h6> <a class="agregarBotton" [routerLink]="['/productoencarrito/add',1009]">Completar Pago</a></h6> -->
-              <h6> <a class="agregarBotton" >Completar Pago</a></h6>
+              <!-- <h6> <a class="agregarBotton" >Completar Pago</a></h6> -->
             </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-<!-- </div> -->
+</div>

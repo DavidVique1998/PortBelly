@@ -27,7 +27,6 @@ export class ProductInCartListComponent implements OnInit {
   productsPrice: Array<number> = [];
   contador = 0;
   precioTotal = 0;
-  usuario: Usuario;
   cliente: Cliente;
   constructor(
     private productInCartService: ProductInCartService,
@@ -42,7 +41,6 @@ export class ProductInCartListComponent implements OnInit {
     this.productsPrice = [];
     this.precioTotal = 0;
     this.productsInCart = [];
-    // this.list();
     this.getProductosEnCarrito();
   }
 
