@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/observable';
-import {map, retry} from 'rxjs/operators';
-import {isNullOrUndefined} from 'util';
+import { retry} from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
-import { stringify } from '@angular/compiler/src/util';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +12,7 @@ export class UsuarioService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      Accept: 'application/json'
     })
   };
   constructor(private http: HttpClient) { }
@@ -52,5 +49,4 @@ export class UsuarioService {
       return usuario;
     }
   }
-
 }

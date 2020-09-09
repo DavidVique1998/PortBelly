@@ -7,13 +7,14 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductService {
-  url = "https://localhost:44386/api/Producto";
+  url = 'https://localhost:44386/api/Producto';
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
     })
   };
   constructor(private http: HttpClient) { }

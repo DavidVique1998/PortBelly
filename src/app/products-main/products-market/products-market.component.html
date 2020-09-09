@@ -1,10 +1,13 @@
 <div>
-    <div class="container">
-        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
-            <div *ngFor="let item of products" >
-              
-              <app-product-market [product] = "item" ></app-product-market> 
-            </div>
-        </div>
-      </div>   
+  <div class="container">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
+      <div *ngFor="let item of products">
+
+        <app-product-market [product]="item"></app-product-market>
+      </div>
+    </div>
+    <div *ngIf="products.length==0" style="text-align: center;">
+          <h6> Sin productos vuelva pronto!!</h6>
+    </div>
 </div>
+  

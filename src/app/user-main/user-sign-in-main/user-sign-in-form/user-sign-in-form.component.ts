@@ -60,6 +60,7 @@ export class UserSignInFormComponent implements OnInit {
     // Swal.showLoading();
     this.auth.login(this.usuario).subscribe(resp => {
       this.auth.verificarRol();
+      window.location.href = '/';
       // Swal.close();
     },
     (err) => {

@@ -30,7 +30,7 @@
                   <fa-icon [icon]="faPager"></fa-icon>
                 </span>
               </div>
-              <label class="form-control ">{{ product.Categoria.cat_nom }} </label>
+              <label class="form-control " *ngIf="product.Categoria!=null">{{ product.Categoria.cat_nom }} </label>
             </div>
           </div>
           <div class="col">
@@ -40,7 +40,7 @@
                   <fa-icon [icon]="faTag"></fa-icon>
                 </span>
               </div>
-              <label class="form-control ">{{ product.Promocion.prm_nom }} </label>
+              <label class="form-control "*ngIf="product.Promocion!=null">{{ product.Promocion.prm_nom }} </label>
             </div>
           </div>
         </div>

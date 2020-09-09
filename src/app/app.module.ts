@@ -51,6 +51,7 @@ import { ReportMainComponent } from './report-main/report-main.component';
 import { ReportDetailsComponent } from './report-main/report-details/report-details.component';
 import { BarChartComponent } from './report-main/bar-chart/bar-chart.component';
 import { PieChartComponent } from './report-main/pie-chart/pie-chart.component';
+import { ProductInCartViewComponent } from './product-in-cart-main/product-in-cart-view/product-in-cart-view.component';
 // import {} from '@stripe/stripe-js';
 
 @NgModule({
@@ -90,6 +91,7 @@ import { PieChartComponent } from './report-main/pie-chart/pie-chart.component';
     ReportDetailsComponent,
     BarChartComponent,
     PieChartComponent,
+    ProductInCartViewComponent,
   ],
   imports: [
     BrowserModule,

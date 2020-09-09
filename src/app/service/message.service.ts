@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Correo} from '../Models/correo';
+import { Correo } from '../Models/correo';
+
 @Injectable({
   providedIn: 'root'
 })

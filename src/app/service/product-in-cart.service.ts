@@ -12,8 +12,9 @@ export class ProductInCartService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
     })
   };
   constructor(private http: HttpClient) { }

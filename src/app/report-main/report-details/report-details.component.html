@@ -1,2 +1,55 @@
-<app-bar-chart [ListNombres] = "pCategoriasListNombres" [ListCantidades]="pCategoriasListCantidad"></app-bar-chart>
-<app-pie-chart [ListNombres] = "pCategoriasListNombres" [ListCantidades]="pCategoriasListCantidad"></app-pie-chart>
+  <div style="text-align: center; height: 100%;" >
+    <div class="row">
+        <div class="col">
+            <h5> Muestra todos los productos en carrito por categoría de manera "{{estadoCategoria}}" </h5>
+        </div>
+        <div class="col"> 
+            <div class="btn-group">
+                <button (click)="getPCategorias('Pendiente')" class="btn btn-sm btn-primary">
+                  Pendiente
+                </button>
+                <button (click)="getPCategorias('Pagado')" class="btn btn-sm btn-dark">
+                  Pagado
+                </button>
+              </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-bar-chart [ListNombres]="pCategoriasListNombres" [ListCantidades]="pCategoriasListCantidad">
+        </app-bar-chart>
+      </div>
+      <div class="col">
+        <app-pie-chart [ListNombres]="pCategoriasListNombres" [ListCantidades]="pCategoriasListCantidad">
+        </app-pie-chart>
+      </div>
+    </div>
+
+    <!-- /----------------------------------------------------- -->
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h5> Muestra todos los productos en carrito por promoción de manera "{{estadoPromocion}}" </h5>
+        </div>
+        <div class="col">
+            <div class="btn-group">
+                <button (click)="getPPromociones('Pendiente')" class="btn btn-sm btn-primary">
+                  Pendiente
+                </button>
+                <button (click)="getPPromociones('Pagado')" class="btn btn-sm btn-dark">
+                  Pagado
+                </button>
+              </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <app-bar-chart [ListNombres]="pPromocionesListNombres" [ListCantidades]="pPromocionesListCantidad">
+          </app-bar-chart>
+        </div>
+        <div class="col">
+          <app-pie-chart [ListNombres]="pPromocionesListNombres" [ListCantidades]="pPromocionesListCantidad">
+          </app-pie-chart>
+        </div>
+      </div>
+  </div>

@@ -3,6 +3,7 @@ import { MessageService } from '../service/message.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Correo } from '../Models/correo';
+
 @Component({
   selector: 'app-contactanos',
   templateUrl: './contactanos.component.html',

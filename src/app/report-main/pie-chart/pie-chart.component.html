@@ -1,23 +1,11 @@
-<div>
-    <div>
-      <div class="chart">
-        <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"
-          [options]="pieChartOptions"
-          [plugins]="pieChartPlugins"
-  
-          [legend]="pieChartLegend">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div>
-    <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
-    <button mat-button mat-raised-button color="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
-    <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change Labels</button>
-    <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
-    <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove Slice</button>
-    <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend Position</button>
-  </div>
+<div class="chart">
+  <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+    [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+  </canvas>
+</div>
+<hr>
+<div style="text-align: center;">
+  <button mat-button mat-raised-button color="primary" class="btn btn-sm btn-success"
+    (click)="randomize()"><fa-icon class="fa-2x" [icon]="faChartPie"></fa-icon> Actualizar</button> 
+</div>
+

@@ -10,7 +10,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./products-market.component.css'],
 })
 export class ProductsMarketComponent implements OnInit {
-  products: Product[];
+  products: Product[]=[];
   constructor(
     private productService: ProductService,
     private imageService: ImageService

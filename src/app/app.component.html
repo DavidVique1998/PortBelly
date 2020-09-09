@@ -1,26 +1,27 @@
 <!-- Toolbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/tienda">PortBelly</a>
+  <a class="navbar-brand" routerLink="/">PortBelly</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item"><a class="nav-link " routerLink="/tienda">Tienda</a></li>
-      <!-- <li class="nav-item"><a class="nav-link " routerLink="/">Inicio</a></li> -->
-      <li class="nav-item"><a class="nav-link " routerLink="/productos">Productos</a></li>
-      <li class="nav-item"><a class="nav-link " routerLink="/categorias">Categorias</a></li>
-      <li class="nav-item"><a class="nav-link " routerLink="/promociones">Promociones</a></li>
-      <li class="nav-item"><a class="nav-link " routerLink="/carritopersonal">Carrito Personal</a></li>
-      <li class="nav-item"><a class="nav-link " routerLink="/informes">Informes</a></li>
+      <li class="nav-item"><a class="nav-link " routerLink="/">Inicio</a></li>
+      <li *ngIf="isClien" class="nav-item"><a class="nav-link " routerLink="/tienda">Tienda</a></li>
+      <li *ngIf="isClien"  class="nav-item"><a class="nav-link " routerLink="/carritopersonal">Carrito Personal</a></li>
+      <li *ngIf="isClien"  class="nav-item"><a class="nav-link " routerLink="/pago">Metodo de Pago</a></li>
+      <li *ngIf="isAdmin" class="nav-item"><a class="nav-link " routerLink="/productos">Productos</a></li>
+      <li *ngIf="isAdmin" class="nav-item"><a class="nav-link " routerLink="/categorias">Categorias</a></li>
+      <li *ngIf="isAdmin" class="nav-item"><a class="nav-link " routerLink="/promociones">Promociones</a></li>
+      <li *ngIf="isAdmin" class="nav-item"><a class="nav-link " routerLink="/informes">Informes</a></li>
     </ul>
     <span class="navbar-text">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link " routerLink="/pago">Metodo de Pago</a></li>
         <li class="nav-item"><a class="nav-link " (click)="logAut()" routerLink="/login">Salir</a></li>
+        <li class="nav-item"><a class="nav-link ">|</a></li>
         <li class="nav-item"><a class="nav-link " routerLink="/login">Ingreso</a></li>
-      </ul>      
+      </ul>
     </span>
   </div>
 </nav>

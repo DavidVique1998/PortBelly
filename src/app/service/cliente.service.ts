@@ -15,8 +15,6 @@ export class ClienteService {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'POST,GET,PUT,DELETE',
-      'Content-Disposition': 'multipart/form-data',
-      enctype: 'multipart/form-data',
       Authorization: 'Bearer ' + localStorage.getItem('token')
     })
   };

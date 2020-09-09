@@ -1,3 +1,32 @@
+
+<style>
+  .modal-header{
+    width: 50vw;
+  }
+  .modal-title{
+    width: 50vw;
+  }
+  .modal-content{
+    width: 50vw;
+  }
+
+  .modal-body{
+    height: 60vh;
+    width: auto;
+    overflow: hidden;
+  }
+
+  .modal-body:hover{overflow-y: auto;}
+  .popupheader{
+    background-color: black;
+    color:white;
+  }
+  .fade{
+    opacity: 1;
+    -webkit-transaction: opacity 1s linear;
+    translate: opacity 1s linear;
+  }
+</style>
 <div>
   <div class="row">
     <div class="col-4 col-md-4 col-sm-4">
@@ -5,10 +34,7 @@
         <fa-icon [icon]="faList"></fa-icon> Tienda
       </a>
     </div>
-    <div class="col-4 col-md-4 col-sm-4">
-      <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
-    </div>
-    <div class="col-4 col-md-4 col-sm-4"style="text-align:center;">
+    <div class="col-4 col-md-4 col-sm-4" style="text-align: center;">
       <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
     </div>
   </div>
@@ -48,12 +74,15 @@
 
               <td>
                 <div class="btn-group" >
-                  <button [routerLink]="['/productos/ver',item.prd_id]" class="btn btn-sm btn-info">
-                    <fa-icon [icon]="faEye"></fa-icon>
-                  </button>
-                  <button [routerLink]="['/productos/editar',item.prd_id]" class="btn btn-sm btn-warning">
+                  <button type="button" (click)="setProductInCart(item)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                   </button>
+                  <!-- <button [routerLink]="['/productos/ver',item.prd_id]" class="btn btn-sm btn-info">
+                    <fa-icon [icon]="faEye"></fa-icon>
+                  </button> -->
+                  <!-- <button [routerLink]="['/productos/editar',item.prd_id]" class="btn btn-sm btn-warning">
+                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                  </button> -->
                   <button (click)="delete(item)" class="btn btn-sm btn-danger">
                     <fa-icon [icon]="faTrash"></fa-icon>
                   </button>
@@ -77,6 +106,43 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="productsInCart.length ==0">
+    <div class="col-12 col-md-12 col-sm-12" style="text-align: center;">
+      <h5>No tienes ningun producto pendiente!!</h5>
+      <div class="productoTienda" style="margin-left: 20px;">
+        <h5><b>Recibo</b></h5>
+        <h5>Nº Productos: {{contador}}</h5>
+        <h5>Total: {{precioTotal|number:"1.2-2"}}</h5>
+        <h6>Regresa a la tienda por más productos</h6>
+        <button>
+          <!-- <h6> <a class="agregarBotton"  (click)="setFacturaCompleta()">Aceptar</a></h6> -->
+          <h6> <a class="agregarBotton" [routerLink]="['/tienda']">Tienda</a></h6>
+          <!-- <h6> <a class="agregarBotton" >Aceptar</a></h6> -->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header popupheader">
+        <h5 class="modal-title" id="exampleModalLongTitle">Producto en mi carrito</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;" (onClick)="ngOnInit()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-product-in-cart-view [productInCart]="productInCart"></app-product-in-cart-view>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="ngOnInit()" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

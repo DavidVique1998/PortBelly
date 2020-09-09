@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductInCart } from '../../models/product-in-cart';
 import { ProductInCartService } from '../../service/product-in-cart.service';
 import { faCartPlus, faList, faUserPlus, faListAlt, faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +28,7 @@ export class ProductInCartListComponent implements OnInit {
   contador = 0;
   precioTotal = 0;
   cliente: Cliente;
+  productInCart: ProductInCart;
   constructor(
     private productInCartService: ProductInCartService,
     private activatedRoute: ActivatedRoute,
@@ -104,6 +105,9 @@ export class ProductInCartListComponent implements OnInit {
     );
   }
 
+  setProductInCart(item: ProductInCart): void{
+    this.productInCart = item;
+  }
   getProductosEnCarrito(): void{
     this.clienteService.getCliente().subscribe((param) => {
       this.cliente = param;

@@ -1,13 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { faChartPie} from '@fortawesome/free-solid-svg-icons';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.css'],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
+  faChartPie = faChartPie;
   @Input() ListNombres: Label[];
   @Input() ListCantidades: number[];
   // Pie
@@ -25,12 +28,17 @@ export class PieChartComponent implements OnInit {
       },
     },
   };
-  pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  pieChartData: number[] = [200, 400, 100, 200, 100, 300, 60];
+  pieChartLabels: Label[] = ['Ventas', 'Pendientes'];
+  pieChartData: number[] = [200, 400];
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
   pieChartPlugins = [pluginDataLabels];
   constructor() {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.ListNombres){
+      this.randomize();
+    }
+  }
 
   ngOnInit(): void {
     // this.randomize();

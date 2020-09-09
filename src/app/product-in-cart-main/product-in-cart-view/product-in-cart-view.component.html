@@ -1,0 +1,104 @@
+<div *ngIf="productInCart!=null" >
+    <div class="row" >
+        <div class="col-6 col-md-6 col-sm-6">
+          <a class="nav-link " routerLink="/tienda" data-dismiss="modal">
+            <fa-icon [icon]="faList"></fa-icon> Tienda
+          </a>
+        </div>
+        <div class="col-6 col-md-6 col-sm-6">
+          <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
+        </div>
+      </div>
+      <hr>
+      <form [formGroup]="formProductInCart" (ngSubmit)="onSubmit()" class="user" #imageForm=ngForm>
+        <div class="card-body">
+          <div class="row row-cols-2" style="align-items: center;">
+            <div class="col-12 col-sm-12 col-md-12 col-xl-7">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <img [src]="imageToShow" style="width: 350px; height:250px">
+                  </span>
+                </div>
+              </div>
+              ID del Producto
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faPager"></fa-icon>
+                  </span>
+                </div>
+                <label class="form-control ">{{ productInCart.Producto.prd_id }} </label>
+              </div>
+            </div>
+            <!-- style="padding-left: 60px;" -->
+            <div class="col-12 col-sm-12 col-md-12 col-xl-5 "  >
+              Nombre
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faPager"></fa-icon>
+                  </span>
+                </div>
+                <label class="form-control ">{{ productInCart.Producto.prd_nom}} </label>
+              </div>
+              Talla
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faRuler"></fa-icon>
+                  </span>
+                </div>
+                <label class="form-control ">{{ productInCart.Producto.prd_tal }} </label>
+              </div>
+              Características
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faTag"></fa-icon>
+                  </span>
+                </div>
+                <label class="form-control ">{{ productInCart.Producto.prd_crt }} </label>
+              </div>
+              Precio
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                  </span>
+                </div>
+                <label class="form-control ">{{ productInCart.Producto.prd_prc }} </label>
+              </div>
+              Cantidad
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <fa-icon [icon]="faGripVertical"></fa-icon>
+                  </span>
+                </div>
+                <span>
+                  <input formControlName="pcr_cnt" type="number" min="1" 
+                    max="{{productInCart.Producto.prd_cnt + productInCart.pcr_cnt}}"
+                    *ngIf="(productInCart.Producto.prd_cnt + productInCart.pcr_cnt) !='0'"
+                    class="form-control form-control-user" [(ngModel)]="productInCart.pcr_cnt"
+                    [ngClass]="{'is-invalid': submitted && f.pcr_cnt.errors}" placeholder="Cantidad" pattern="^[0-9]*$"
+                    (keypress)="numberOnly($event)" required />
+                  <div *ngIf="submitted && f.pcr_cnt.errors" class="invalid-feedback">
+                    <div *ngIf="f.pcr_cnt.errors.requerido">La cantidad es requerida</div>
+                  </div>
+                  <div *ngIf="productInCart.Producto.prd_cnt =='0'" style="color: red;">
+                    Agotado*
+                  </div>
+                </span>
+              </div>
+              <!-- [disabled]=" !formProductInCart?.valid  " -->
+              <div class="btn-group text-center">
+                <button type="submit"  class="btn btn-success">
+                  <fa-icon [icon]="faCartPlus"></fa-icon>&nbsp;Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+</div>

@@ -94,7 +94,7 @@ export class ProductInCartAddComponent implements OnInit {
       });
       return;
     }
-    if (this.productInCart.pcr_cnt !== 0){
+    if (this.productInCart.pcr_cnt > 0 && this.productInCart.pcr_cnt <=  Number(this.product.prd_cnt)){
       this.productInCart.car_id = this.cart.car_id;
       this.productInCart.prd_id = this.product.prd_id;
       this.productInCart.pcr_est = 'Agregado';
@@ -107,7 +107,7 @@ export class ProductInCartAddComponent implements OnInit {
     }else{
       Swal.fire({
         title: 'Error',
-        text: 'Error la cantidad debe ser mayor a cero',
+        text: 'Error la cantidad debe ser mayor a cero y menor a ' + this.product.prd_cnt,
         icon: 'error',
       });
       return;
@@ -141,5 +141,13 @@ export class ProductInCartAddComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 }

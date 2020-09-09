@@ -36,4 +36,7 @@ export class BillService {
       retry(1)
     );
   }
+  getBillByCli(id: number): Observable<Bill>{
+    return  this.http.get<Bill>(this.url + '/' + 'GenerateFacturaByCli?id=' + id, this.httpOptions).pipe(retry(1));
+  }
 }

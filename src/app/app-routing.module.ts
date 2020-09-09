@@ -89,7 +89,7 @@ const routes: Routes = [
     path: 'factura',
     component: BillFormComponent,
     canActivate: [AuthGuard],
-    data: { permittedRoles: ['Cliente'] },
+    data: { permittedRoles: ['Cliente']},
   },
 ];
 @NgModule({

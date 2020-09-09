@@ -1,15 +1,10 @@
-<div>
-    <div>
-      <div style="display: block">
-        <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-        </canvas>
-      </div>
-      <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
-    </div>
+<div style="display: block">
+  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+  </canvas>
+  <hr>
+</div>
+<div style="text-align: center;">
+  <button mat-button mat-raised-button  color="primary" class="btn btn-sm btn-success"
+    (click)="randomize()"><fa-icon class="fa-2x" [icon]="faChartBar"></fa-icon> Actualizar</button>
 </div>

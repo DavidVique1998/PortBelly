@@ -5,5 +5,4 @@ export class Bodybill {
     cbf_id: number;
     car_id: number;
     crf_dateOfCreated: string;
-    CabezaFactura: Bill;
 }

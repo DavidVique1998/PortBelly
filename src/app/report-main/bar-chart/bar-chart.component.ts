@@ -1,13 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { faChartBar, faThumbsDown} from '@fortawesome/free-solid-svg-icons';
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges {
+  faChartBar = faChartBar;
   @Input() ListNombres: Label[] ;
   @Input() ListCantidades: number[] = [];
   // Bar
@@ -32,6 +35,11 @@ export class BarChartComponent implements OnInit {
   ];
   constructor() {
     this.randomize();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.ListNombres){
+        this.randomize();
+    }
   }
 
   ngOnInit(): void {

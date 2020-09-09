@@ -1,23 +1,24 @@
-<form novalidate (ngSubmit)="createToken()" [formGroup]="formPayment">
+<!-- <form novalidate (ngSubmit)="createToken()" [formGroup]="formPayment">
   <input type="text" formControlName="pgo_nom" placeholder="Jane Doe">
-  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" ></ngx-stripe-card>
+  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
   <button type="submit">
     CREATE TOKEN
   </button>
-</form>
+</form> -->
 
 <div class="container">
   <div class="text-center">
-    <fa-icon class="fa-2x" [icon]="faUserPlus"></fa-icon>
+    <fa-icon class="fa-2x" [icon]="faCreditCard"></fa-icon>
   </div>
   <hr>
+  <h6 *ngIf="llave">Actualizando metodo de pago</h6>
 </div>
 <form [formGroup]="formPayment" (ngSubmit)="onSubmit()" class="user">
   <div class="card-body">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text">
-          <fa-icon [icon]='faUser'></fa-icon>
+          <fa-icon [icon]='faSignature'></fa-icon>
         </span>
       </div>
       <input formControlName="pgo_nom" type="text" class="form-control form-control-user" [(ngModel)]="payment.pgo_nom"
@@ -29,46 +30,56 @@
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text">
-          <fa-icon [icon]='faEnvelope'></fa-icon>
+          <fa-icon [icon]='faTh'></fa-icon>
         </span>
       </div>
       <input formControlName="pgo_ntg" type="text" class="form-control form-control-user" [(ngModel)]="payment.pgo_ntg"
-        [ngClass]="{'is-invalid':submitted && f.pgo_ntg.errors}" placeholder="Número de tarjeta" />
+        [ngClass]="{'is-invalid':submitted && f.pgo_ntg.errors}" placeholder="Número de tarjeta" minlength="16"
+        maxlength="16" pattern="^[0-9]*$" (keypress)="numberOnly($event)" required />
       <div *ngIf="submitted && f.pgo_ntg.errors" class="invalid-feedback">
         <div *ngIf="f.pgo_ntg.errors.requerido">El número de tarjeta es requerido</div>
       </div>
+      <div *ngIf="formPayment.get('pgo_ntg').errors && formPayment.get('pgo_ntg').dirty">
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('required')">Es reuerido</p>
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('minlength')">Minimo de 16 caracteres</p>
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('maxlength')">Maximo de 16 caracteres</p>
+      </div>
     </div>
     <div class="row">
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <fa-icon [icon]='faIdCard'></fa-icon>
-                  </span>
-                </div>
-                <input formControlName="pgo_fven_mes" type="text" class="form-control form-control-user"
-                   [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}"
-                  placeholder="Mes de vencimiento" />
-                <div *ngIf="submitted && f.pgo_fven_mes.errors" class="invalid-feedback">
-                  <div *ngIf="f.pgo_fven_mes.errors.requerido">El mes de vencimiento es requerido</div>
-                </div>
-              </div>
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]='faIdCard'></fa-icon>
+            </span>
+          </div>
+          <select formControlName="pgo_fven_mes" type="text" class="form-control form-control-user"
+            [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}" placeholder="Mes de vencimiento">
+            <option *ngFor="let item of Mes" [value]="item">{{item}}</option>
+          </select>
+          <!-- <input formControlName="pgo_fven_mes" type="text" class="form-control form-control-user"
+            [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}" placeholder="Mes de vencimiento" /> -->
+          <div *ngIf="submitted && f.pgo_fven_mes.errors" class="invalid-feedback">
+            <div *ngIf="f.pgo_fven_mes.errors.requerido">El mes de vencimiento es requerido</div>
+          </div>
         </div>
-        <div class="col">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <fa-icon [icon]='faIdCard'></fa-icon>
-                  </span>
-                </div>
-                <input formControlName="pgo_fven_year" type="text" class="form-control form-control-user"
-                   [ngClass]="{'is-invalid':submitted && f.pgo_fven_year}"
-                  placeholder="Año de vencimiento" />
-                <div *ngIf="submitted && f.pgo_fven_year.errors" class="invalid-feedback">
-                  <div *ngIf="f.pgo_fven_year.errors.requerido">El año de vencimiento es requerido</div>
-                </div>
-              </div>
+      </div>
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <fa-icon [icon]='faIdCard'></fa-icon>
+            </span>
+          </div>
+          <select formControlName="pgo_fven_year" type="text" class="form-control form-control-user"
+            [ngClass]="{'is-invalid':submitted && f.pgo_fven_year}" placeholder="Año de vencimiento">
+            <option *ngFor="let item of Anio" [value]="item">{{item}}</option>
+          </select>
+          <div *ngIf="submitted && f.pgo_fven_year.errors" class="invalid-feedback">
+            <div *ngIf="f.pgo_fven_year.errors.requerido">El año de vencimiento es requerido</div>
+          </div>
         </div>
+      </div>
     </div>
 
     <div class="input-group mb-3">
@@ -86,7 +97,7 @@
     </div>
     <div class="btn-group">
       <button type="submit" class="btn btn-success">
-        <fa-icon [icon]='faSignInAlt'></fa-icon>&nbsp;Guardar
+        <fa-icon [icon]='faSave'></fa-icon>&nbsp;Guardar
       </button>
       <button type="reset" (click)="onReset()" class="btn btn-danger">
         <fa-icon [icon]='faTimes'></fa-icon>&nbsp;Cancelar

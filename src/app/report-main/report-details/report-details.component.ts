@@ -17,19 +17,21 @@ export class ReportDetailsComponent implements OnInit {
   pPromociones: Array<PestadosProductosPorPromocionResult> = [];
   pCategoriasListNombres: Label[] = [];
   pCategoriasListCantidad: number[] = [];
-  pPromocionesListNombres: Label[];
-  pPromocionesListCantidad: Data;
+  pPromocionesListNombres: Label[] = [];
+  pPromocionesListCantidad: number[] = [];
   estadoCategoria = 'Pendiente';
   estadoPromocion = 'Pendiente';
-  constructor( private informeService: InformeService) { }
+  constructor( private informeService: InformeService) {
+    this.getPCategorias(this.estadoCategoria);
+    this.getPPromociones(this.estadoPromocion);
+  }
 
   ngOnInit(): void {
-    this.getPCategorias();
-    this.getPPromociones();
   }
-   async getPCategorias(): Promise<void>{
+   async getPCategorias(valor: string): Promise<void>{
+    this.estadoCategoria = valor;
     this.pCategorias = [];
-    this.informeService.getCategorias(this.estadoCategoria).subscribe(result => {
+    this.informeService.getCategorias(valor).subscribe(result => {
       this.pCategorias = result;
       console.log(result);
       this.getListPCategorias();
@@ -37,15 +39,17 @@ export class ReportDetailsComponent implements OnInit {
       console.log(error);
     });
   }
-  async getPPromociones(): Promise<void>{
+  async getPPromociones(valor: string): Promise<void>{
+    this.estadoPromocion = valor;
     this.pPromociones = [];
-    this.informeService.getPromociones(this.estadoPromocion).subscribe(result => {
+    this.informeService.getPromociones(valor).subscribe(result => {
       this.pPromociones = result;
       this.getListPPromociones();
     }, error => {
       console.log(error);
     });
   }
+
 
   getListPCategorias(): void{
     this.pCategoriasListNombres = [];

@@ -19,7 +19,12 @@ export class PaymentService {
   };
   constructor(private http: HttpClient) { }
   create(p: Payment): Observable<any>{
-    return this.http.post<any>(this.url, p, this.httpOptions);
+    if (p.cln_id != null){
+      return this.http.put<any>(this.url, p, this.httpOptions);
+    }
+    else{
+      return this.http.post<any>(this.url, p, this.httpOptions);
+    }
   }
 
   retrive(id: number): Observable<Payment>{
