@@ -11,7 +11,7 @@
     <fa-icon class="fa-2x" [icon]="faCreditCard"></fa-icon>
   </div>
   <hr>
-  <h6 *ngIf="llave">Actualizando metodo de pago</h6>
+  <h6 *ngIf="llave">Actualizando método de pago</h6>
 </div>
 <form [formGroup]="formPayment" (ngSubmit)="onSubmit()" class="user">
   <div class="card-body">
@@ -40,13 +40,14 @@
         <div *ngIf="f.pgo_ntg.errors.requerido">El número de tarjeta es requerido</div>
       </div>
       <div *ngIf="formPayment.get('pgo_ntg').errors && formPayment.get('pgo_ntg').dirty">
-        <p *ngIf="formPayment.get('pgo_ntg').hasError('required')">Es reuerido</p>
-        <p *ngIf="formPayment.get('pgo_ntg').hasError('minlength')">Minimo de 16 caracteres</p>
-        <p *ngIf="formPayment.get('pgo_ntg').hasError('maxlength')">Maximo de 16 caracteres</p>
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('required')">Es requerido</p>
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('minlength')">Mínimo de 16 caracteres</p>
+        <p *ngIf="formPayment.get('pgo_ntg').hasError('maxlength')">Máximo de 16 caracteres</p>
       </div>
     </div>
     <div class="row">
       <div class="col">
+        <h6>Mes</h6>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -57,14 +58,13 @@
             [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}" placeholder="Mes de vencimiento">
             <option *ngFor="let item of Mes" [value]="item">{{item}}</option>
           </select>
-          <!-- <input formControlName="pgo_fven_mes" type="text" class="form-control form-control-user"
-            [ngClass]="{'is-invalid':submitted && f.pgo_fven_mes}" placeholder="Mes de vencimiento" /> -->
           <div *ngIf="submitted && f.pgo_fven_mes.errors" class="invalid-feedback">
             <div *ngIf="f.pgo_fven_mes.errors.requerido">El mes de vencimiento es requerido</div>
           </div>
         </div>
       </div>
       <div class="col">
+        <h6>Año</h6>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -88,11 +88,16 @@
           <fa-icon [icon]='faKey'></fa-icon>
         </span>
       </div>
-      <input formControlName="pgo_cseg" type="text" class="form-control form-control-user"
+      <input formControlName="pgo_cseg" type="text" minlength="3" maxlength="3"  class="form-control form-control-user"
         [(ngModel)]="payment.pgo_cseg" [ngClass]="{'is-invalid':submitted && f.pgo_cseg.errors}"
-        placeholder="Código de seguridad" />
+        placeholder="Código de seguridad"  (keypress)="numberOnly($event)"/>
       <div *ngIf=" submitted && f.pgo_cseg.errors" class="invalid-feedback" pattern="\d+">
         <div *ngIf="f.pgo_cseg.errors.requerido">El código de seguridad es requerido</div>
+      </div>
+      <div *ngIf="formPayment.get('pgo_cseg').errors && formPayment.get('pgo_ntg').dirty">
+        <p *ngIf="formPayment.get('pgo_cseg').hasError('required')">Es requerido</p>
+        <p *ngIf="formPayment.get('pgo_cseg').hasError('minlength')">Mínimo de 3 caracteres</p>
+        <p *ngIf="formPayment.get('pgo_cseg').hasError('maxlength')">Máximo de 3 caracteres</p>
       </div>
     </div>
     <div class="btn-group">

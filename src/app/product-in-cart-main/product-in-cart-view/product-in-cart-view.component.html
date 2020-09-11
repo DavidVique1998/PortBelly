@@ -17,7 +17,7 @@
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <img [src]="imageToShow" style="width: 350px; height:250px">
+                    <img [src]="imageToShow" style="width: 25vw; height:auto">
                   </span>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                     <fa-icon [icon]="faTag"></fa-icon>
                   </span>
                 </div>
-                <label class="form-control ">{{ productInCart.Producto.prd_crt }} </label>
+                <textarea  class="form-control" style="resize: none; overflow:scroll; background-color: white;" readonly>{{ productInCart.Producto.prd_crt }} </textarea>
               </div>
               Precio
               <div class="input-group mb-3">
@@ -78,7 +78,7 @@
                 </div>
                 <span>
                   <input formControlName="pcr_cnt" type="number" min="1" 
-                    max="{{productInCart.Producto.prd_cnt + productInCart.pcr_cnt}}"
+                    max="{{(productInCart.Producto.prd_cnt|number) + productInCart.pcr_cnt}}"
                     *ngIf="(productInCart.Producto.prd_cnt + productInCart.pcr_cnt) !='0'"
                     class="form-control form-control-user" [(ngModel)]="productInCart.pcr_cnt"
                     [ngClass]="{'is-invalid': submitted && f.pcr_cnt.errors}" placeholder="Cantidad" pattern="^[0-9]*$"

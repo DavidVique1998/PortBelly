@@ -1,0 +1,131 @@
+<div class="container-fluid fondo-main">
+    <div class="row ">
+      <div class=" d-flex  col-xs-4 col-lg-4 col-md-4  justify-content-center ">
+        <div class="d-none d-sm-none d-md-block ">
+          <img src="assets/img/mujer.png" class="img-fluid mt-5"
+            style="right: 0; top: 0;  opacity: 1; width: auto; height: 70vh;">
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 justify-content-center  align-self-sm-center ">
+        <div class="row d-flex justify-content-center centrarcon">
+          <h1 class="display-4 font-weight-normal text-center ">100% Ecuatoriano</h1>
+          <div class="pt-3">
+            <p class="lead font-weight-normal text-center">Tienda PortBelly.</p>
+          </div>
+          <div class="pt-5" style="text-align: center;">
+            <p *ngIf="isAdmin()" class="lead font-weight-normal text-center">Bienvenido Administrador </p>  
+            <p *ngIf="isClien()" class="lead font-weight-normal text-center">Bienvenido {{usuario.uso_nom}} </p>  
+            <br>
+            
+          
+          </div>
+          <p style="text-align: center;">
+            <a *ngIf="!usuario" href="/login" class="btn btn-primary p-2">Registrate </a>
+            <a *ngIf="isClien()" href="/tienda" class="btn btn-primary p-2">Tienda</a>
+            <a *ngIf="isAdmin()" href="/productos" class="btn btn-primary p-2">Productos</a>
+          </p>
+        </div>
+  
+      </div>
+      <div class=" d-flex  col-xs-4 col-lg-4 col-md-4  justify-content-center ">
+        <div class=" d-none d-sm-none d-md-block">
+          <img src="assets/img/hombre.png" class="img-fluid mt-5"
+            style="right: 0; top: 0;  opacity: 1; width: auto; height: 70vh;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid ">
+    <div class="row mt-4">
+  
+      <div class="col-xs-4 col-lg-4 col-md-6 d-flex justify-content-center">
+        <div class="card shadowp  p-3 mb-5 rb-5" style="width: 360px;">
+          <div class="d-flex justify-content-center mt-0">
+            <iframe class="card-img-top mt-3" src="assets/img/variedad.svg" frameborder="0"></iframe>
+          </div>
+          <div class="card-body text-center p-1">
+            <h5 class="card-title pt-3">Variedad</h5>
+            <p class="card-text pt-3"></p>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xs-4 col-lg-4 col-md-6 d-flex justify-content-center">
+        <div class="card shadowp p-3 mb-5" style="width: 350px;">
+          <div class="d-flex justify-content-center mt-0">
+            <iframe class="card-img-top mt-3" src="assets/img/asistencia.svg" frameborder="0"></iframe>
+  
+          </div>
+          <div class="card-body text-center p-1">
+            <h5 class="card-title pt-3">Asistencia</h5>
+            <p class="card-text pt-3"></p>
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xs-4 col-lg-4 col-md-12 d-flex justify-content-center ">
+        <div class="card shadowp  card-section border p-3 mb-5 " style="width: 350px;">
+          <div class="d-flex justify-content-center mt-0">
+            <iframe class="card-img-top mt-3" src="assets/img/ahorro.svg" frameborder="0"></iframe>
+          </div>
+          <div class="card-body text-center p-1">
+            <h5 class="card-title pt-3">Ahorro</h5>
+            <p class="card-text px-3"></p>
+  
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <!-- contenedo de productos------------>
+  <div class="container-fluid mb-5 d-flex justify-content-center">
+    <h2>Conoce nuestros nuevos Productos</h2>
+  
+  </div>
+  <div class="container-fluid ">
+    <div class="row">
+  
+      <div class="col-xs-4 col-lg-4 col-md-6 d-flex justify-content-center">
+        <div class="card cardProd  p-3 mb-5 " style="width: 300px; height: 400px;">
+          <iframe class="card-img-top mt-3" src="assets/img/variedad.svg" frameborder="0"></iframe>
+          <div class="card-body text-center">
+            <h5 class="card-title pt-3">Variedad</h5>
+            <p class="card-text pt-3"></p>
+            <div class="pt-3">
+              <a href="/tienda" class="btn btn-primary p-2">Vamos alla!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xs-4 col-lg-4 col-md-6 d-flex justify-content-center">
+        <div class="card cardProd p-3 mb-5" style="width: 350px;">
+          <iframe class="card-img-top mt-3" src="assets/img/asistencia.svg" frameborder="0"></iframe>
+          <div class="card-body text-center">
+            <h5 class="card-title pt-3">Asistencia</h5>
+            <p class="card-text pt-3"></p>
+            <div class="pt-3">
+              <a href="/tienda" class="btn btn-primary p-2">Vamos alla!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-xs-4 col-lg-4 col-md-12 d-flex justify-content-center">
+        <div class="card cardProd  border p-3 mb-5" style="width: 350px;">
+          <iframe class="card-img-top mt-3" src="assets/img/ahorro.svg" frameborder="0"></iframe>
+          <div class="card-body text-center">
+            <h5 class="card-title pt-3">Ahorro</h5>
+            <p class="card-text pt-3"></p>
+            <div class="pt-3">
+              <a href="/tienda" class="btn btn-primary p-2">Vamos alla!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>

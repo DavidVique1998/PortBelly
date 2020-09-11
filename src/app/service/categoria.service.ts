@@ -9,7 +9,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoriaService {
-  url = 'https://localhost:44386/api/Categorias';
+  url = 'http://portbelly2.azurewebsites.net/api/Categorias';
 
   httpOptions = {
     headers: new HttpHeaders({

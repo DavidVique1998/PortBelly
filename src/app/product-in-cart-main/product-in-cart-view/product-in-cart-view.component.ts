@@ -86,7 +86,7 @@ export class ProductInCartViewComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void{
     if (changes.productInCart){
       this.getImageFromService(changes.productInCart.currentValue);
-      console.log('Producto actualizado');
+      console.log('Productos en carrito cargados');
     }
   }
   ngOnInit(): void {

@@ -30,6 +30,7 @@ import {
   StripeElementsOptions,
   StripeCardElement,
 } from '@stripe/stripe-js';
+import { ConstantPool } from '@angular/compiler';
 @Component({
   selector: 'app-payment-form',
   templateUrl: './payment-form.component.html',
@@ -151,14 +152,15 @@ export class PaymentFormComponent implements OnInit, OnChanges {
   getCliente(): void {
     this.clienteService.getCliente().subscribe((param) => {
       this.cliente = param;
-      console.log(this.cliente);
+      // console.log(this.cliente);
       this.getPayment();
     });
   }
   getPayment(): void {
+
     this.paymentService.getUniquePayments(this.cliente.cln_id).subscribe(
       (result) => {
-        console.log(result);
+        // console.log(result);
         if ( result != null){
           this.payment = result;
           this.llave = true;
@@ -180,11 +182,7 @@ export class PaymentFormComponent implements OnInit, OnChanges {
       return;
     }
     this.payment.cln_id = this.cliente.cln_id;
-    const fecha = new Date();
-    fecha.setMonth = this.formPayment.get('pgo_fven_mes').value;
-    fecha.setFullYear = this.formPayment.get('pgo_fven_year').value;
-    this.payment.pgo_fven = fecha.toString();
-    console.log(this.payment);
+    this.payment.pgo_fven = '20' + this.formPayment.get('pgo_fven_year').value + '-' + this.formPayment.get('pgo_fven_mes').value + '-01';
     this.paymentService.create(this.payment).subscribe(
       (result) => {
         // this.ngOnInit();

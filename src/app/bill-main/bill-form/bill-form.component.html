@@ -1,3 +1,32 @@
+<style>
+  .modal-header{
+    width: 40vw;
+  }
+  .modal-title{
+    width: 40vw;
+  }
+  .modal-content{
+    width: 40vw;
+  }
+
+  .modal-body{
+    height: 60vh;
+    width: auto;
+    overflow: hidden;
+  }
+
+  .modal-body:hover{overflow-y: auto;}
+  .popupheader{
+    background-color: black;
+    color:white;
+  }
+  .fade{
+    opacity: 1;
+    -webkit-transaction: opacity 1s linear;
+    translate: opacity 1s linear;
+  }
+</style>
+
 <div>
   <div class="row">
     <div class="col-4 col-md-4 col-sm-4">
@@ -26,13 +55,17 @@
             </tr>
             <tr>
               <th scope="row">Metodo de pago:</th>
-              <td  style="text-align: center;">
-                  <button *ngIf="this.payment==null" mat-button mat-raised-button color="primary" class="btn btn-sm btn-info" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModalCenter">
-                    <fa-icon  [icon]="faPlusSquare"></fa-icon> Agregar metodo de pago
-                  </button>
-                  <button *ngIf="this.payment!=null" mat-button mat-raised-button color="primary" class="btn btn-sm btn-warning" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModalCenter">
-                    <fa-icon  [icon]="faPencilAlt"></fa-icon>  Editar metodo de pago
-                  </button>
+              <td style="text-align: center;">
+                <button *ngIf="this.payment==null" mat-button mat-raised-button color="primary"
+                  class="btn btn-sm btn-info" class="btn btn-sm btn-info" data-toggle="modal"
+                  data-target="#exampleModalCenter">
+                  <fa-icon [icon]="faPlusSquare"></fa-icon> Agregar metodo de pago
+                </button>
+                <button *ngIf="this.payment!=null" mat-button mat-raised-button color="primary"
+                  class="btn btn-sm btn-warning" class="btn btn-sm btn-info" data-toggle="modal"
+                  data-target="#exampleModalCenter">
+                  <fa-icon [icon]="faPencilAlt"></fa-icon> Editar metodo de pago
+                </button>
               </td>
             </tr>
             <tr>
@@ -122,11 +155,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Método de pago</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (onClick)="ngOnInit()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -140,3 +174,88 @@
     </div>
   </div>
 </div>
+
+
+
+
+<div class="container" >
+  <div class="card">
+    <div class="card-header">
+
+      <ul class="nav nav-pills p-3 mb-2 bg-white text-dark">
+        <li role="presentation" > <h4> PortBelly</h4> </li>
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-cart-check-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm.354-7.646a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+        </svg>
+      </ul>
+    </div>
+<!--  -->
+    <div class="card-body" >
+
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12" style="text-align: center;">
+          <h4><b>Factura Portbelly</b> </h4>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row">Nombre:</th>
+                <td>{{usuario.uso_nom}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Correo:</th>
+                <td>{{usuario.uso_cor}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Metodo de pago:</th>
+                <td style="text-align: center;">
+                  
+                  {{(payment?.pgo_ntg|slice:0:4)+'-xxxx-xxxx-xxxx'}}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Fecha:</th>
+                <td>{{fecha |date:'longDate'}}</td>
+              </tr>
+            </tbody>
+          </table>
+  <!--  -->
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>N°</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Promoción</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--  -->
+              <tr *ngFor="let item of productsInCart;let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.Producto.prd_id+" "+item.Producto.prd_nom}}</td>
+                <td>{{item.pcr_cnt}}</td>
+                <td>{{item.Producto.prd_prc}} c/u</td>
+                <td>{{item.Producto.Promocion.prm_nom}}</td>
+                <td>{{productsPrice[i]|number:"1.2-2"}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+                <th> Total: </th>
+                <td> {{precioTotal|number:"1.2-2"}}</td>
+                <th> </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer"><a href="http://localhost:4200/" target="_blank">PortBelly</a></div>
+  </div>
+</div>
+

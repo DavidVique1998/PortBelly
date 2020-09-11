@@ -14,8 +14,14 @@ import {PaymentFormComponent} from './payment-main/payment-form/payment-form.com
 import {AuthGuard} from './guards/auth.guard';
 import { ReportDetailsComponent} from './report-main/report-details/report-details.component';
 import { BillFormComponent} from './bill-main/bill-form/bill-form.component';
+import { InicioComponent} from './inicio/inicio.component';
+
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {
+    path: 'inicio',
+    component: InicioComponent
+  },
   {
     path: 'tienda',
     component: ProductsMarketComponent,
@@ -71,9 +77,7 @@ const routes: Routes = [
     data: { permittedRoles: ['Cliente'] },
   },
   { path: 'login', component: UserMainComponent },
-  {
-    path: '', redirectTo: 'tienda', pathMatch: 'full'
-  },
+  
   { path: 'pago',
     component: PaymentFormComponent,
     canActivate: [AuthGuard],

@@ -1,13 +1,13 @@
 
 <style>
   .modal-header{
-    width: 50vw;
+    width: 60vw;
   }
   .modal-title{
-    width: 50vw;
+    width: 60vw;
   }
   .modal-content{
-    width: 50vw;
+    width: 60vw;
   }
 
   .modal-body{
@@ -29,12 +29,12 @@
 </style>
 <div>
   <div class="row">
-    <div class="col-4 col-md-4 col-sm-4">
+    <div class="col-6 col-md-6 col-sm-6 col-xl-6">
       <a class="nav-link " routerLink="/tienda">
         <fa-icon [icon]="faList"></fa-icon> Tienda
       </a>
     </div>
-    <div class="col-4 col-md-4 col-sm-4" style="text-align: center;">
+    <div class="col-6 col-md-6 col-sm-6 col-xl-6" style="text-align: center;">
       <fa-icon class="fa-2x" [icon]="faCartPlus"></fa-icon>
     </div>
   </div>
@@ -61,7 +61,7 @@
           <tbody>
             <tr *ngFor="let item of productsInCart;let i = index">
               <th scope="row">{{i+1}}</th>
-              <td><img [src]="productsInCartImages[i]" style="width: auto; height:50px" /></td>
+              <td><img [src]="productsInCartImages[i]" style="width: 8vw; height:auto"/></td>
 
               <td>{{item.Producto.prd_id+" "+item.Producto.prd_nom}}</td>
               <td>{{item.pcr_cnt}}</td>

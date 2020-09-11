@@ -8,7 +8,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class InformeService {
-  url = 'https://localhost:44386/api/Informes';
+  url = 'http://portbelly2.azurewebsites.net/api/Informes';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

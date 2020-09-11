@@ -17,16 +17,16 @@
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <img [src]="imageToShow" style="width: 350px; height:300px">
+              <img [src]="imageToShow" style="width: 25vw; height:auto">
             </span>
           </div>
           <!-- <input  type="file" (change)="handleFileInput($event.target.files)"
             class="form-control-file"  placeholder="Imagen" #Image accept="image/*"  formnovalidate="formnovalidate"/> -->
-            <ngx-file-drop  dropZoneLabel="Drop files here" #Image accept="image/*"  (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+            <ngx-file-drop  style="width: 40vw; height:auto" dropZoneLabel="Drop files here" #Image accept="image/*"  (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
             (onFileLeave)="fileLeave($event)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
               Arrastre una imagen a este lugar ó....<br>
-              <button type="button" #Image accept="image/*" (click)="openFileSelector()">Selecciona una imagen</button>
+              <button type="button" #Image accept="image/*" style="width: 15vw; height:auto" (click)="openFileSelector()">Selecciona una imagen</button>
             </ng-template>
           </ngx-file-drop>
         </div>

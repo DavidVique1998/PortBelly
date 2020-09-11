@@ -7,7 +7,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ClienteService {
-  url = 'https://localhost:44386/api/Clientes';
+  url = 'http://portbelly2.azurewebsites.net/api/Clientes';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -30,13 +30,15 @@ export class ClienteService {
     return this.http.put<any>(this.url, c, this.httpOptions);
   }
   getCliente(): Observable <Cliente>{
-    const cliente = new Cliente();
-    const payLoad = JSON.parse(
-      window.atob(localStorage.getItem('token').split('.')[1])
-    );
-    cliente.uso_id = payLoad.id;
-    if (cliente.uso_id !== null) {
-      return this.http.get<Cliente>(this.url + '/' + 'GetCliente?id=' + cliente.uso_id, this.httpOptions);
+    if (localStorage.getItem('token')){
+      const cliente = new Cliente();
+      const payLoad = JSON.parse(
+        window.atob(localStorage.getItem('token').split('.')[1])
+      );
+      cliente.uso_id = payLoad.id;
+      if (cliente.uso_id !== null) {
+        return this.http.get<Cliente>(this.url + '/' + 'GetCliente?id=' + cliente.uso_id, this.httpOptions);
+      }
     }
   }
 }

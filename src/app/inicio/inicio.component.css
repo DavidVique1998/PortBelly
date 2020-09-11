@@ -1,0 +1,143 @@
+.dimcard{
+    width: 300px;
+    height: 350px;
+  }
+  .fondohead{
+    height: 90%;
+    width: 100vh;
+    background-image: url('/assets/img/Captura.jpg');
+  
+  }
+  .fondo-main{
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  .cabezain{
+    width: 100%;
+    height: 80vh;
+  }
+  .full-width-image{
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+  }
+  img{
+    width: 100vw;
+    height: 90vh;
+    background-size: 100% 100%;
+    background-size: cover;
+  }
+  *{margin: 0; padding: 0;}
+  
+  .container{
+    display: flex;
+  }
+  .hj{
+    width: auto;
+    height: auto;
+  }
+  @media (max-width: 770px) {
+    .hl{
+      display: flex-column;
+    }
+    #map{
+      width: 576px;
+    }
+  
+    .image1{
+      display: none;
+    }
+    .centrarcon{
+      margin-top: 15vh;
+      margin-bottom: 15vh;
+    }
+    .cabezain{
+      height: 70vh;
+    }
+   }
+  
+  .fondo{
+    background:burlywood;
+    text-align: center;
+  }
+  
+  .principal{
+      margin-top:50px;
+      font-family: 'Roboto';
+  }
+  /*--Card */
+  
+  /* /----Card presentacion----/ */
+  .borde{
+    border:3px #000 solid;
+  }
+  iframe{
+    justify-content: center;
+    width: 200px;
+    height: 100px;
+  }
+  .fondop{
+  background-color: rgba(252, 244, 244, 0.16);
+  }
+  .shadowp{
+  
+    box-shadow:1px 5px 10px #a2a2a2;
+    border-radius: 20px;
+  }
+  .contenedorgraf{
+  border-radius: 50px;
+  }
+/*  */
+  
+  
+  
+  /* /Social Icons/ */
+  
+  /* /---------------------/ */
+  
+  /* /tarjeta 3/ */
+  .card-header-third{
+      margin-top:-25px;
+      height: 120px;
+      box-shadow:1px 5px 15px #a2a2a2;
+      background: linear-gradient(-90deg, #11998e, #38ef7d);
+  }
+  
+  .card-section-third span i{
+      padding:17px;
+      margin:0px 10px;
+      color:#fff;
+      height:50px;
+      width:50px;
+      box-shadow:1px 6px 24px #d2d2d2;
+      background: linear-gradient(-90deg, #11998e, #38ef7d);
+  }
+  
+  .card-header-third span i:hover,.card-section-third span i:hover{
+      box-shadow:1px 1px 15px #000;
+  }
+  
+  /* /efecto shadows para todas las tarjetas/ */
+  .card-section{
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+  }
+  /* /Para el efecto sombra al pasar por encima el mouse/ */
+  .card-section:hover{
+      box-shadow:1px 1px 20px #d2d2d2;
+  }
+  
+  /* /------------------------Producto----------------------/ */
+  .dimencCart{
+    width: 400px;
+    height: 800px;
+  
+  }
+  .cardProd{
+    border-radius: 10px;
+    border-color:#5FBCE8 ;
+  }
+  .cardProd:hover{
+  
+    box-shadow: 0 12px 15px 0 rgba(99, 233, 242, 0.60), 0 2px 10px 0 rgba(99, 233, 242,.52);
+  }

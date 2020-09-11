@@ -1,0 +1,32 @@
+a:hover {
+    color: #125699;
+  }
+  .circle-link:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  }
+  .footer1{
+    background:#615B55;
+  }
+  .cardf{
+    opacity: 0.1;
+  }
+  .headerc{
+  background:#615B55;
+  }
+  footer a {
+    display: flex;
+    align-items: center;
+  }
+  .dimred{
+  border-radius: 15px;
+  height: 32px;
+  width: 32px;
+  }
+  .facolor{
+    color: aliceblue;
+  }
+  .row1{
+    width: 70vw;
+    justify-content: center;
+  }

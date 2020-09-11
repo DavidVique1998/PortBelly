@@ -7,7 +7,7 @@ import { Usuario } from '../models/usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  url = 'https://localhost:44386/api/Usuario';
+  url = 'http://portbelly2.azurewebsites.net/api/Usuario';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -36,17 +36,19 @@ export class UsuarioService {
       this.httpOptions).pipe(retry(1));
   }
   getUsuario(): Usuario{
-    const usuario = new Usuario();
-    const payLoad = JSON.parse(
-      window.atob(localStorage.getItem('token').split('.')[1])
-    );
-    usuario.uso_id = payLoad.id;
-    usuario.uso_cor = payLoad.email;
-    usuario.uso_nom = payLoad.Nombres;
-    usuario.uso_rol = payLoad.rol;
-    usuario.uso_usu = payLoad.unique_name;
-    if (usuario.uso_id !== null) {
-      return usuario;
+    if ( localStorage.getItem('token') ){
+      const usuario = new Usuario();
+      const payLoad = JSON.parse(
+        window.atob(localStorage.getItem('token').split('.')[1])
+      );
+      usuario.uso_id = payLoad.id;
+      usuario.uso_cor = payLoad.email;
+      usuario.uso_nom = payLoad.Nombres;
+      usuario.uso_rol = payLoad.rol;
+      usuario.uso_usu = payLoad.unique_name;
+      if (usuario.uso_id !== null) {
+        return usuario;
+      }
     }
   }
 }

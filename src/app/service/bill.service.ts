@@ -7,7 +7,7 @@ import { Bill } from '../models/bill';
   providedIn: 'root'
 })
 export class BillService {
-  url = 'https://localhost:44386/api/CabezaFacturas';
+  url = 'http://portbelly2.azurewebsites.net/api/CabezaFacturas';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

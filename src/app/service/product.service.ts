@@ -7,7 +7,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProductService {
-  url = 'https://localhost:44386/api/Producto';
+  url = 'http://portbelly2.azurewebsites.net/api/Producto';
 
   httpOptions = {
     headers: new HttpHeaders({

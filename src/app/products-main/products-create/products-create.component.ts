@@ -99,11 +99,14 @@ export class ProductsCreateComponent implements OnInit {
       console.error('Error en formulario');
       return;
     }
+
+    if (Number(this.product.prd_cnt) < 1){
+    }
     // Imagen y producto funcioanl porfinnnnn!!!!
     const fd = new FormData();
     fd.append('image', this.fileToUpload, this.fileToUpload.name);
     this.http
-      .post('https://localhost:44386/api/Imagen', fd, {
+      .post('http://portbelly2.azurewebsites.net/api/AzureFile', fd, {
         headers: {
           // 'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('token'),

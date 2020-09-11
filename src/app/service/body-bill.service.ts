@@ -7,7 +7,7 @@ import { Bodybill } from '../models/bodybill';
   providedIn: 'root'
 })
 export class BodyBillService {
-  url = 'https://localhost:44386/api/CuerpoFacturas';
+  url = 'http://portbelly2.azurewebsites.net/api/CuerpoFacturas';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import { ClienteService } from '../service/cliente.service';
   providedIn: 'root'
 })
 export class PaymentService {
-  url = 'https://localhost:44386/api/Pagos';
+  url = 'http://portbelly2.azurewebsites.net/api/Pagos';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -19,7 +19,8 @@ export class PaymentService {
   };
   constructor(private http: HttpClient) { }
   create(p: Payment): Observable<any>{
-    if (p.cln_id != null){
+    console.log(p.pgo_id);
+    if (p.pgo_id){
       return this.http.put<any>(this.url, p, this.httpOptions);
     }
     else{

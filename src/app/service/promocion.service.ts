@@ -7,7 +7,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PromocionService {
-  url = 'https://localhost:44386/api/Promociones';
+  url = 'http://portbelly2.azurewebsites.net/api/Promociones';
 
   httpOptions = {
     headers: new HttpHeaders({

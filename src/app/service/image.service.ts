@@ -7,7 +7,7 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ImageService {
-  url = 'https://localhost:44386/api/Imagen';
+  url = 'http://portbelly2.azurewebsites.net/api/AzureFile';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export class ImageService {
   deleteFile(name: string): Observable<any> {
     return this.http
       .delete<any>(this.url + '?name=' + name, {headers: {
-        //'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
         'Access-Control-Allow-Origin': '*',

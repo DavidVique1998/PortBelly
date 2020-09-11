@@ -11,7 +11,7 @@ import { UserMainComponent } from '../user-main/user-main.component';
   providedIn: 'root',
 })
 export class LoginService {
-  url = 'https://localhost:44386/api/Login/Authenticate';
+  url = 'http://portbelly2.azurewebsites.net/api/Login/Authenticate';
   userToken: string;
   httpOptions = {
     headers: new HttpHeaders({
